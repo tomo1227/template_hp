@@ -1,19 +1,27 @@
-# devcontainer_template
+# template_hp
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Dev-Container の Template ブランチ
+HPのtemplate
 
-# Usage
+## Usage
 
-このテンプレートをcloneしたら以下を自分の環境に合わせて編集しましょう。
+### Local
 
-- [devcontainer.json](.devcontainer/devcontainer.json)
-- [compose.yml](.devcontainer/compose.yml)
-- [pr_test.yml](.github/workflows/pr_test.yml)
-- [pull_request_template](.github/pull_request_template.md)
-- [.env](.env)
-- [README.md](README.md)
+1. https://bun.sh/docs/installation から `bun`をインストールしてください。
+1. `bun i`
+1. `bun run dev`
+1. http://localhost:3000/ を開く
+
+### Dev-Container
+
+Dev-Containerを立ち上げて、コンテナ内で以下のコマンドを叩いてください。
+
+```sh
+make run
+```
+
+http://localhost:3000/ (もしくは、自分で指定したポート) を開く
 
 ## PORTの割り当て
 

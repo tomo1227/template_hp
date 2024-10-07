@@ -3,20 +3,24 @@
   "service": "devcontainer",
   "workspaceFolder": "/workspace",
   "dockerComposeFile": ["../compose.yml"],
-  "forwardPorts": [8080],
+  "forwardPorts": [3000],
   "remoteUser": "vscode",
   "postCreateCommand": "sh .devcontainer/scripts/post_create.sh",
   "postStartCommand": "sh .devcontainer/scripts/post_start.sh ${containerWorkspaceFolder}",
   "customizations": {
     "vscode": {
       "extensions": [
-        // yaml, jsonc, json, toml
+        // Hono, Bun, Htmx
+        "Chanzhaoyu.hono-snippets",
+        "oven.bun-vscode",
+        // htmx, js
+        "otovo-oss.htmx-tags",
+        "ChakrounAnas.turbo-console-log",
+        "formulahendry.auto-rename-tag",
+        // yaml, jsonc, json
         "redhat.vscode-yaml",
         "esbenp.prettier-vscode",
-        "tamasfe.even-better-toml",
         // Git関連
-        "GitHub.vscode-pull-request-github",
-        "github.vscode-github-actions",
         "mhutchie.git-graph",
         "eamodio.gitlens",
         "seatonjiang.gitmoji-vscode",
@@ -29,8 +33,7 @@
         "naumovs.color-highlight",
         "Gruntfuggly.todo-tree",
         "oderwat.indent-rainbow",
-        "ms-vscode.live-server",
-        "MS-vsliveshare.vsliveshare",
+        "ms-vsliveshare.vsliveshare",
         "usernamehw.errorlens",
         "formulahendry.code-runner"
       ]
