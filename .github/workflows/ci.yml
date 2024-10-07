@@ -4,17 +4,10 @@ on:
     branches:
       - main
   pull_request:
-    types: [opened, synchronize]
-    paths:
-      - "**.yml"
   workflow_dispatch:
-permissions: write-all
 
 jobs:
-  go-test:
+  run-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-  

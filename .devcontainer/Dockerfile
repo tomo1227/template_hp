@@ -1,3 +1,8 @@
 FROM mcr.microsoft.com/devcontainers/base:jammy
+
 RUN apt update && \
     apt install -y vim curl
+ARG USERNAME=vscode
+RUN echo "export PATH=\"/home/${USERNAME}/.bun/bin:\$PATH\"" >> /home/${USERNAME}/.bashrc
+RUN export PATH="/home/$USERNAME/.bun/bin:$PATH"
+RUN . /home/${USERNAME}/.bashrc
