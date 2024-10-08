@@ -1,11 +1,8 @@
-// @ts-ignore
-import styles from "../static/tailwind.css?url";
-
 export function Hello() {
   return (
     <html>
       <head>
-        <link href={styles} rel="stylesheet" />
+        <link href="../static/tailwind.css" rel="stylesheet" />
       </head>
       <body>
         <div>
