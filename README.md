@@ -6,19 +6,22 @@ HPのtemplate
 
 ## Usage
 
-### Local
-
-1. https://bun.sh/docs/installation から `bun`をインストールしてください。
-1. `bun i`
-1. `bun run dev`
-1. http://localhost:3000/ を開く
-
-### Dev-Container
-
-Dev-Containerを立ち上げて、コンテナ内で以下のコマンドを叩いてください。
+Dev-Containerを立ち上げて、コンテナ内で以下のコマンドを叩く。
 
 ```sh
 make run
+```
+
+OR
+
+```sh
+bun run dev
+```
+
+OR
+
+```sh
+bunx --bun vite
 ```
 
 http://localhost:3000/ (もしくは、自分で指定したポート) を開く

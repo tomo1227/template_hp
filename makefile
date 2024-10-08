@@ -4,7 +4,7 @@ install:
 
 .PHONY: ci
 ci:
-	bun run --frozen-lockfile
+	bun i --frozen-lockfile
 
 .PHONY: update
 update:
@@ -12,7 +12,7 @@ update:
 
 .PHONY: run
 run:
-	bun run dev
+	bunx --bun vite --host 0.0.0.0
 
 .PHONY: up
 up:
@@ -33,3 +33,7 @@ delete:
 .PHONY: log
 log:
 	docker compose logs -f
+
+.PHONY: css
+css:
+	bun run tailwindcss -i ./src/styles/tailwind.css -o ./static/tailwind.css --watch
