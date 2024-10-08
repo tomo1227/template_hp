@@ -24,7 +24,7 @@ OR
 bunx --bun vite
 ```
 
-http://localhost:3000/ (もしくは、自分で指定したポート) を開く
+http://localhost:3001/ (もしくは、自分で指定したポート) を開く
 
 ## PORTの割り当て
 
