@@ -27,7 +27,7 @@ jobs:
         with:
           bun-version: latest
       - run: bun install --frozen-lockfile
-      - run: bun run ./build.ts --mode production
+      - run: bun run build --mode production
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
