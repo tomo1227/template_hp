@@ -1,0 +1,30 @@
+import { jsxRenderer } from "hono/jsx-renderer";
+import { Link } from "honox/server";
+
+export default jsxRenderer(({ children, title, frontmatter }) => {
+  return (
+    <html lang="jp">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {<title>{title ?? frontmatter?.title ?? "My Blog"}</title>}
+        {/* <Link rel="stylesheet" href="/static/assets/tailwind.css" /> */}
+        <Link rel="icon" href="/static/assets/favicon.ico"></Link>
+        <Link rel="stylesheet" href="/static/assets/style.css" />
+      </head>
+      <body>
+        <header>
+          <h1>
+            <a href="/">Tomoki Ota Tech Blog</a>
+          </h1>
+        </header>
+        <main>
+          <article>{children}</article>
+        </main>
+        <footer>
+          <p>&copy; 2024 My Blog. All rights reserved.</p>
+        </footer>
+      </body>
+    </html>
+  );
+});
