@@ -12,7 +12,7 @@ update:
 
 .PHONY: run
 run:
-	bunx --bun vite --host 0.0.0.0
+	bunx --bun vite
 
 .PHONY: up
 up:
@@ -24,7 +24,7 @@ down:
 
 .PHONY: prune
 prune:
-	docker compose down
+	docker system prune -a
 
 .PHONY: delete
 delete:
