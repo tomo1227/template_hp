@@ -6,6 +6,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.markdownlint": "explicit"
   },
+  "typescript.tsdk": "node_modules/typescript/lib",
   "[javascript][javascriptreact][typescript][typescriptreact]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -68,7 +69,9 @@
     "devcontainer",
     "devcontainers",
     "dockercompose",
-    "Hono"
+    "Hono",
+    "honox",
+    "tailwindcss"
   ],
   "todo-tree.general.tags": [
     "HACK",
@@ -219,9 +222,7 @@
     }
   ],
   "cSpell.ignorePaths": [".vscode", ".devcontainer/devcontainer.json"],
-  "errorLens.excludeBySource": [
-    "cSpell"
-  ],
+  "errorLens.excludeBySource": ["cSpell"],
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#05848b",
     "activityBar.background": "#05848b",

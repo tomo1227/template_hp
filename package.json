@@ -1,20 +1,25 @@
 {
-  "name": "workspace",
+  "name": "mdx",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "bun run ./build.ts"
+    "build": "vite build",
+    "preview": "wrangler pages dev ./dist",
+    "deploy": "$npm_execpath run build && wrangler pages deploy ./dist"
   },
-  "dependencies": {
-    "@hono/vite-dev-server": "^0.16.0",
-    "@hono/vite-ssg": "^0.1.0",
-    "hono": "^4.6.3",
-    "vite": "^5.4.8"
-  },
+  "private": true,
   "devDependencies": {
-    "@types/bun": "latest",
+    "@hono/vite-ssg": "^0.1.0",
+    "@mdx-js/rollup": "^3.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13"
+    "remark-frontmatter": "^5.0.0",
+    "remark-mdx-frontmatter": "^4.0.0",
+    "tailwindcss": "^3.4.13",
+    "vite": "^5.0.12"
   },
-  "type": "module"
+  "dependencies": {
+    "hono": "^4.0.3",
+    "honox": "^0.1.9"
+  }
 }
