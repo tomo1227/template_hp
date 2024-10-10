@@ -14,14 +14,15 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
       <body>
         <header>
           <h1>
-            <a href="/">Tomoki Ota Tech Blog</a>
+            <a href="/">The Code Wanderlust</a>
+            <span>by Tomoki Ota</span>
           </h1>
         </header>
         <main>
           <article>{children}</article>
         </main>
         <footer>
-          <p>&copy; 2024 My Blog. All rights reserved.</p>
+          <p>&copy; 2024 The Code Wanderlust. All rights reserved.</p>
         </footer>
       </body>
     </html>
