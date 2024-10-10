@@ -1,5 +1,4 @@
 import { jsxRenderer } from "hono/jsx-renderer";
-import { Link } from "honox/server";
 
 export default jsxRenderer(({ children, title, frontmatter }) => {
   return (
@@ -8,9 +7,9 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {<title>{title ?? frontmatter?.title ?? "My Blog"}</title>}
-        {/* <Link rel="stylesheet" href="/static/assets/tailwind.css" /> */}
-        <Link rel="icon" href="/static/assets/favicon.ico"></Link>
-        <Link rel="stylesheet" href="/static/assets/style.css" />
+        {/* <link rel="stylesheet" href="/static/assets/tailwind.css" /> */}
+        <link rel="icon" href="/static/assets/favicon.ico" />
+        <link rel="stylesheet" href="/static/assets/style.css" />
       </head>
       <body>
         <header>
