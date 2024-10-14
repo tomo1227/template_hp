@@ -43,6 +43,7 @@ export default defineConfig(({ mode }) => {
         rollupOptions: {
           input: ["assets/styles/tailwind.css", "assets/theme.ts"],
           output: {
+            publicPath: "/",
             entryFileNames: "static/assets/[name].js",
             assetFileNames: (assetInfo) => {
               if (assetInfo.name === ".css") {
