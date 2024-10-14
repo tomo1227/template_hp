@@ -21,6 +21,7 @@
     "oderwat.indent-rainbow",
     "ms-vscode.live-server",
     "usernamehw.errorlens",
-    "formulahendry.code-runner"
+    "formulahendry.code-runner",
+    "ms-vscode.live-server"
   ]
 }

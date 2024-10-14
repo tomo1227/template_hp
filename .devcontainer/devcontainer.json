@@ -9,6 +9,10 @@
   "postStartCommand": "sh .devcontainer/scripts/post_start.sh ${containerWorkspaceFolder}",
   "customizations": {
     "vscode": {
+      "settings": {
+        "livePreview.hostIP": "0.0.0.0",
+        "livePreview.portNumber": 3003
+      },
       "extensions": [
         // Hono, Bun, Htmx
         "Chanzhaoyu.hono-snippets",
@@ -35,7 +39,8 @@
         "oderwat.indent-rainbow",
         "ms-vsliveshare.vsliveshare",
         "usernamehw.errorlens",
-        "formulahendry.code-runner"
+        "formulahendry.code-runner",
+        "ms-vscode.live-server"
       ]
     }
   }
