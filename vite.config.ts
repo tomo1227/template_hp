@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
   const commonConfig = {
     plugins: [
       honox(),
-      pages(),
+      // pages(),
       ssg({ entry }),
       mdx({
         jsxImportSource: "hono/jsx",
@@ -40,10 +40,12 @@ export default defineConfig(({ mode }) => {
     return {
       ...commonConfig,
       build: {
+        assetsDir: "static",
+        emptyOutDir: false,
+        ssrEmitAssets: true,
         rollupOptions: {
           input: ["assets/styles/tailwind.css", "assets/theme.ts"],
           output: {
-            publicPath: "/",
             entryFileNames: "static/assets/[name].js",
             assetFileNames: (assetInfo) => {
               if (assetInfo.name === ".css") {
@@ -53,6 +55,18 @@ export default defineConfig(({ mode }) => {
             },
           },
         },
+      },
+      ssr: {
+        target: "node",
+        external: [
+          "unified",
+          "@mdx-js/mdx",
+          "satori",
+          "@resvg/resvg-js",
+          "feed",
+          "budoux",
+          "jsdom",
+        ],
       },
     };
   }
