@@ -21,7 +21,7 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
           rel="stylesheet"
           manifest={{
             "assets/styles/tailwind.css": {
-              file: "static/assets/tailwind.css",
+              file: "/static/assets/tailwind.css",
             },
           }}
         />
