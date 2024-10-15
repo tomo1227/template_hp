@@ -5,7 +5,6 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { defineConfig } from "vite";
 import client from "honox/vite/client";
-import pages from "@hono/vite-cloudflare-pages";
 
 const entry = "./app/server.ts";
 
@@ -19,7 +18,6 @@ export default defineConfig(({ mode }) => {
   const commonConfig = {
     plugins: [
       honox(),
-      // pages(),
       ssg({ entry }),
       mdx({
         jsxImportSource: "hono/jsx",
@@ -48,9 +46,9 @@ export default defineConfig(({ mode }) => {
           output: {
             entryFileNames: "static/assets/[name].js",
             assetFileNames: (assetInfo) => {
-              if (assetInfo.name === ".css") {
-                return `assets/assets/[name].[ext]`;
-              }
+              // if (assetInfo.name === ".css") {
+              //   return `assets/styles/[name].[ext]`;
+              // }
               return "static/assets/[name].[ext]";
             },
           },

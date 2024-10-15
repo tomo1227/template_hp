@@ -2,6 +2,7 @@ import { jsxRenderer } from "hono/jsx-renderer";
 import { Link, Script } from "honox/server";
 import { Header } from "../components/Header";
 import ThemeButton from "../islands/ThemeButton";
+import { Style } from "hono/css";
 
 export default jsxRenderer(({ children, title, frontmatter }) => {
   return (
@@ -10,12 +11,13 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {<title>{title ?? frontmatter?.title ?? "My Blog"}</title>}
-        <Script src="/app/client.ts" async />
         {import.meta.env.PROD ? (
           <script src="/static/assets/theme.js" />
         ) : (
-          <script src="/app/theme.ts" />
+          <script src="assets/theme.ts" />
         )}
+        <Script src="app/client.ts" async />
+        <Style />
         <Link
           href="assets/styles/tailwind.css"
           rel="stylesheet"
@@ -27,11 +29,11 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
         />
         <link rel="icon" href="/static/assets/favicon.ico" />
       </head>
-      <body>
+      <body class="flex flex-col items-center mb-2 bg-[#fbf9f2] dark:bg-zinc-800 mx-2">
         <Header>
           <ThemeButton />
         </Header>
-        <main>
+        <main class="max-w-[780px] w-screen px-6 mt-6">
           <article>{children}</article>
         </main>
         <footer>
