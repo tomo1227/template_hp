@@ -18,15 +18,11 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
         )}
         <Script src="/app/client.ts" />
         <Style />
-        <Link
-          href="/app/assets/styles/tailwind.css"
-          rel="stylesheet"
-          manifest={{
-            "/app/assets/styles/tailwind.css": {
-              file: "/static/assets/tailwind.css",
-            },
-          }}
-        />
+        {import.meta.env.PROD ? (
+          <link href="/static/assets/tailwind.css" rel="stylesheet" />
+        ) : (
+          <link href="/app/assets/styles/tailwind.css" rel="stylesheet" />
+        )}
         <link rel="icon" href="/static/assets/favicon.ico" />
       </head>
       <body class="flex flex-col items-center mb-2 bg-[#fbf9f2] dark:bg-zinc-800 mx-2">
