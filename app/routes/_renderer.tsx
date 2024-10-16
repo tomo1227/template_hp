@@ -12,17 +12,17 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         {<title>{title ?? frontmatter?.title ?? "My Blog"}</title>}
         {import.meta.env.PROD ? (
-          <script src="/static/assets/theme.js" />
+          <script src="/static/theme.js" />
         ) : (
-          <script src="assets/theme.ts" />
+          <script src="/app/assets/theme.ts" />
         )}
-        <Script src="app/client.ts" async />
+        <Script src="/app/client.ts" />
         <Style />
         <Link
-          href="assets/styles/tailwind.css"
+          href="/app/assets/styles/tailwind.css"
           rel="stylesheet"
           manifest={{
-            "assets/styles/tailwind.css": {
+            "/app/assets/styles/tailwind.css": {
               file: "/static/assets/tailwind.css",
             },
           }}

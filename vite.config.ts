@@ -42,13 +42,10 @@ export default defineConfig(({ mode }) => {
         emptyOutDir: false,
         ssrEmitAssets: true,
         rollupOptions: {
-          input: ["assets/styles/tailwind.css", "assets/theme.ts"],
+          input: ["/app/assets/styles/tailwind.css", "/app/assets/theme.ts"],
           output: {
             entryFileNames: "static/assets/[name].js",
             assetFileNames: (assetInfo) => {
-              // if (assetInfo.name === ".css") {
-              //   return `assets/styles/[name].[ext]`;
-              // }
               return "static/assets/[name].[ext]";
             },
           },
