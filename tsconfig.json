@@ -8,6 +8,7 @@
     "lib": ["esnext", "dom"],
     "types": ["vite/client"],
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
+    "jsxImportSource": "hono/jsx",
+    "moduleDetection": "force"
   }
 }

@@ -5,7 +5,7 @@ export default function Top() {
     eager: true,
   });
   return (
-    <div>
+    <div class="mt-6 flex flex-col gap-12">
       <h2>Posts</h2>
       <ul class="article-list">
         {Object.entries(posts).map(([id, module]) => {
