@@ -1,5 +1,11 @@
 import {} from "hono";
-import type { Meta } from "./types";
+import type { Frontmatter } from "./types/frontmatter";
+
+type Head = {
+  title?: string;
+  frontmatter?: Frontmatter;
+  entryName?: string;
+};
 
 declare module "hono" {
   // interface Env {
@@ -7,7 +13,7 @@ declare module "hono" {
   //   Bindings: {};
   // }
   interface ContextRenderer {
-    (content: string | Promise<string>, meta?: Meta & { frontmatter: Meta }):
+    (content: string | Promise<string>, head?: Head):
       | Response
       | Promise<Response>;
   }

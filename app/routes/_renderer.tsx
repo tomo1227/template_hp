@@ -32,6 +32,7 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
         <main class="max-w-[780px] w-screen px-6 mt-6">
           <article>{children}</article>
         </main>
+        {/* <main class={"max-w-[780px] w-screen px-6 mt-6"}>{children}</main> */}
         <footer>
           <p>&copy; 2024 My HP Template. All rights reserved.</p>
         </footer>

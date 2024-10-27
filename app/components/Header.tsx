@@ -18,7 +18,7 @@ export const Header = (props: Props) => {
       <div class={"flex justify-center"}>
         <div class="mr-2">{props.children}</div>
         <a
-          href="https://www.instagram.com/tomomon1227/"
+          href="https://www.instagram.com/tomomon1227"
           target="_blank"
           rel="noopener noreferrer"
         >
