@@ -26,16 +26,15 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
         )}
         <link rel="icon" href="/static/assets/favicon.ico" />
       </head>
-      <body class="flex flex-col items-center mb-2 bg-[#fbf9f2] dark:bg-zinc-800 mx-2">
+      <body class="flex flex-col items-center mb-2 bg-[#fbf9f2] dark:bg-zinc-800 mx-2 min-h-screen">
         <Header>
           <ThemeButton />
         </Header>
-        <div class="flex flex-col min-h-[90vh]">
-          <main class="max-w-[780px] w-screen px-6 mt-6 flex-grow">
-            <article>{children}</article>
-          </main>
-          <Footer />
-        </div>
+
+        <main class="max-w-[780px] w-screen px-6 mt-6 flex-grow">
+          <article>{children}</article>
+        </main>
+        <Footer />
       </body>
     </html>
   );
