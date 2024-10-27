@@ -12,6 +12,7 @@ import { formattedDate } from "../../components/feature/blogs/date";
 import { ArticleListItem } from "../../components/feature/blogs/AritclesListItems";
 import { Profile } from "../../components/parts/Profile";
 import { TitleIcon } from "../../components/parts/TitleIcon";
+import { Footer } from "../../components/Footer";
 // import { XIcon } from "../../components/parts/icons";
 
 // const parser = new Parser(jaModel);
