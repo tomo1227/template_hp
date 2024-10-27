@@ -4,7 +4,7 @@
 
 HPのTemplate
 
-https://tomo1227.github.io/template_hp/
+https://template-hp.pages.dev/
 
 ## Usage
 
