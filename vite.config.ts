@@ -9,12 +9,12 @@ import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import { defineConfig } from "vite";
+import { defineConfig, UserConfig, SSRTarget } from "vite";
 import theme from "./public/static/assets/theme.json";
 
 const entry = "./app/server.ts";
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode }): UserConfig => {
   if (mode === "client") {
     return {
       plugins: [client()],
@@ -23,8 +23,8 @@ export default defineConfig(({ mode }) => {
 
   const commonConfig = {
     plugins: [
-      honox({}),
       ssg({ entry }),
+      honox({}),
       mdx({
         jsxImportSource: "hono/jsx",
         providerImportSource: "./app/lib/mdxComponents",
@@ -54,6 +54,18 @@ export default defineConfig(({ mode }) => {
         interval: 1000,
       },
     },
+    ssr: {
+      target: "node" as SSRTarget ,
+      external: [
+        "unified",
+        "@mdx-js/mdx",
+        "satori",
+        "@resvg/resvg-js",
+        "feed",
+        "budoux",
+        "jsdom",
+      ],
+    }
   };
 
   if (mode === "production") {
@@ -72,19 +84,7 @@ export default defineConfig(({ mode }) => {
             },
           },
         },
-      },
-      ssr: {
-        target: "node",
-        external: [
-          "unified",
-          "@mdx-js/mdx",
-          "satori",
-          "@resvg/resvg-js",
-          "feed",
-          "budoux",
-          "jsdom",
-        ],
-      },
+      }
     };
   }
 
