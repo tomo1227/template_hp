@@ -1,3 +1,5 @@
+import { JSDOM } from "jsdom";
+
 type OgpKey = "title" | "description" | "image" | "url";
 type Ogp = {
   title: string;
@@ -15,33 +17,25 @@ export const fetchOgp = async (url: string) => {
     url: "",
   };
   try {
-    const response = await fetch(url);
-    const html = await response.text();
+    const dom = await JSDOM.fromURL(url);
     const host = new URL(url).host;
     ogp.favicon = `https://www.google.com/s2/favicons?domain=${host}&sz=20`;
-    const metaTags = html.match(/<meta [^>]*>/g);
+    const metas = dom.window.document.getElementsByTagName("meta");
 
-    if (metaTags) {
-      metaTags.forEach((tag) => {
-        const propMatch = tag.match(/property="og:([^"]*)"/);
-        const contentMatch = tag.match(/content="([^"]*)"/);
+    Array.from(metas).forEach((v) => {
+      const prop = v.getAttribute("property");
+      if (!prop) return;
+      const key = prop.replace("og:", "");
+      if (key === "image:alt") ogp.imageAlt = v.getAttribute("content") || "";
+      if (!isOgpKey(key)) return;
+      ogp[key] = v.getAttribute("content") || "";
+    });
 
-        if (propMatch && contentMatch) {
-          const key = propMatch[1];
-          if (key === "image:alt") {
-            ogp.imageAlt = contentMatch[1];
-          } else if (isOgpKey(key)) {
-            ogp[key] = contentMatch[1];
-          }
-        }
-      });
-    }
     return ogp;
   } catch (e) {
     console.error(e);
   }
 };
-
 
 function isOgpKey(key: any): key is OgpKey {
   return (
