@@ -21,13 +21,18 @@ export default defineConfig(({ mode }): UserConfig => {
     };
   }
 
+  const codeOptions = {
+    theme: theme,
+    defaultLang: 'plaintext',
+  }
+  
   const commonConfig = {
     plugins: [
       ssg({ entry }),
       honox({}),
       mdx({
         jsxImportSource: "hono/jsx",
-        providerImportSource: "./app/lib/mdxComponents",
+        providerImportSource: "./app/components/feature/blogs/mdxComponents",
         remarkPlugins: [
           remarkFrontmatter,
           remarkMdxFrontmatter,
@@ -43,7 +48,7 @@ export default defineConfig(({ mode }): UserConfig => {
           remarkGfm,
           remarkParse,
         ],
-        rehypePlugins: [rehypeStringify, [rehypePrettyCode, { theme: theme }]],
+        rehypePlugins: [rehypeStringify, [rehypePrettyCode, codeOptions]],
       }),
     ],
     server: {
