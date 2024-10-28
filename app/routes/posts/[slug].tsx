@@ -1,5 +1,3 @@
-// import { model as jaModel } from "budoux/dist/data/models/ja";
-// import { Parser } from "budoux/dist/parser";
 import { Fragment } from "hono/jsx/jsx-runtime";
 import { ssgParams } from "hono/ssg";
 import { createRoute } from "honox/factory";
@@ -12,10 +10,11 @@ import { formattedDate } from "../../components/feature/blogs/date";
 import { ArticleListItem } from "../../components/feature/blogs/AritclesListItems";
 import { Profile } from "../../components/parts/Profile";
 import { TitleIcon } from "../../components/parts/TitleIcon";
-import { Footer } from "../../components/Footer";
-// import { XIcon } from "../../components/parts/icons";
+import { XIcon } from "../../components/parts/icons";
+import { model as jaModel } from "budoux/dist/data/models/ja";
+import { Parser } from "budoux/dist/parser";
 
-// const parser = new Parser(jaModel);
+const parser = new Parser(jaModel);
 
 export default createRoute(
   ssgParams(() => {
@@ -37,7 +36,7 @@ export default createRoute(
 
     const latestPosts = getLatestPostsWithoutTargetPost(post?.entryName ?? "");
     const hasLatestPosts = latestPosts.length > 0;
-    // const splitedTitle = parser.parse(post?.frontmatter.title ?? "");
+    const splitedTitle = parser.parse(post?.frontmatter.title ?? "");
     const titleLen = pageTitle.length;
     return c.render(
       <div>
@@ -48,7 +47,7 @@ export default createRoute(
               titleLen > 20 && "md:w-[90%]"
             }`}
           >
-            {/* {splitedTitle} */}
+            {splitedTitle}
           </h1>
           <time
             class={
@@ -60,10 +59,10 @@ export default createRoute(
         </div>
         <article class={"markdown"}>{post?.Component({})}</article>
 
-        {/* <div class={"mt-10 flex items-center justify-center gap-2"}>
+        <div class={"mt-10 flex items-center justify-center gap-2"}>
           <span>この記事をシェアする</span>
           <a
-            href={`https://twitter.com/intent/tweet?url=https://blog.pathy.com/entry/${
+            href={`https://twitter.com/intent/tweet?url=https://template-hp.pages.dev/entry/${
               post?.entryName
             }&text=${post?.frontmatter.title}${" - "}tomomon's blog`}
             referrerpolicy="no-referrer"
@@ -71,7 +70,7 @@ export default createRoute(
           >
             <XIcon size={26} />
           </a>
-        </div> */}
+        </div>
 
         <Profile />
         {hasLatestPosts && (

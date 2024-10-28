@@ -76,13 +76,23 @@ body {
   @apply text-sm border-l-4 border-gray-300 pl-4 pr-4 text-gray-600 dark:text-gray-300;
 }
 
-.markdown code:not([data-theme="moonlight-ii"]) {
-  @apply font-mono text-sm inline bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200 rounded px-1.5 py-1 mx-0.5 tracking-wide;
-}
+/* .markdown code:not([data-theme="material-theme"]) {
+  @apply font-mono text-sm inline rounded px-1.5 py-1 mx-0.5 tracking-wide;
+} */
 
-.markdown code[data-theme="moonlight-ii"] {
-  @apply font-mono text-sm;
-}
+/* .markdown code:not([data-theme="material-theme"]) {
+  @apply font-mono text-sm inline tracking-wide;
+} */
+
+.markdown code[data-theme="material-theme-palenight"] {
+  @apply font-mono text-sm rounded px-1.5 py-1 mx-0.5 tracking-wide;
+} 
+
+/* themeをjsonで指定した際に適応 */
+/* .markdown code:not([data-theme="moonlight-ii"]) {
+  @apply font-mono text-sm inline bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200 rounded px-1.5 py-1 mx-0.5 tracking-wide;
+} */
+
 .markdown pre {
   @apply bg-gray-100 rounded p-1;
 }

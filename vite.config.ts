@@ -1,27 +1,57 @@
 import ssg from "@hono/vite-ssg";
 import mdx from "@mdx-js/rollup";
 import honox from "honox/vite";
-import remarkFrontmatter from "remark-frontmatter";
-import remarkMdxFrontmatter from "remark-mdx-frontmatter";
-import { defineConfig } from "vite";
 import client from "honox/vite/client";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeStringify from "rehype-stringify";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkGfm from "remark-gfm";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import { defineConfig, UserConfig, SSRTarget } from "vite";
+// import moonlight from "./public/static/assets/themes/moonlight-ii.json";
+// import { transformerNotationDiff } from '@shikijs/transformers';
 
 const entry = "./app/server.ts";
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode }): UserConfig => {
   if (mode === "client") {
     return {
       plugins: [client()],
     };
   }
 
+  const codeOptions = {
+    // see: https://shiki.style/themes#themes
+    theme: "material-theme-palenight",
+    grid:false,
+    defaultLang: "plaintext",
+  }
+  
   const commonConfig = {
     plugins: [
-      honox(),
       ssg({ entry }),
+      honox({}),
       mdx({
         jsxImportSource: "hono/jsx",
-        remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
+        providerImportSource: "./app/components/feature/blogs/mdxComponents",
+        remarkPlugins: [
+          remarkFrontmatter,
+          remarkMdxFrontmatter,
+          [
+            remarkRehype,
+            {
+              footnoteBackContent: "↩︎",
+              footnoteLabel: " ",
+              footnoteLabelTagName: "hr",
+              footnoteBackLabel: "Back to reference 1",
+            },
+          ],
+          remarkGfm,
+          remarkParse,
+        ],
+        rehypePlugins: [rehypeStringify, [rehypePrettyCode, codeOptions]],
       }),
     ],
     server: {
@@ -32,6 +62,18 @@ export default defineConfig(({ mode }) => {
         interval: 1000,
       },
     },
+    ssr: {
+      target: "node" as SSRTarget ,
+      external: [
+        "unified",
+        "@mdx-js/mdx",
+        "satori",
+        "@resvg/resvg-js",
+        "feed",
+        "budoux",
+        "jsdom",
+      ],
+    }
   };
 
   if (mode === "production") {
@@ -45,24 +87,12 @@ export default defineConfig(({ mode }) => {
           input: ["/app/assets/styles/tailwind.css", "/app/assets/theme.ts"],
           output: {
             entryFileNames: "static/assets/[name].js",
-            assetFileNames: (assetInfo) => {
+            assetFileNames: () => {
               return "static/assets/[name].[ext]";
             },
           },
         },
-      },
-      ssr: {
-        target: "node",
-        external: [
-          "unified",
-          "@mdx-js/mdx",
-          "satori",
-          "@resvg/resvg-js",
-          "feed",
-          "budoux",
-          "jsdom",
-        ],
-      },
+      }
     };
   }
 

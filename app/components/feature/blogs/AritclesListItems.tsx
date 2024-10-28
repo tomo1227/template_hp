@@ -10,7 +10,7 @@ type Props = {
 };
 export const ArticleListItem = (props: Props) => {
   return (
-    <a href={`/entry/${props.entryName}`}>
+    <a href={`/posts/${props.entryName}`}>
       <div class={"flex gap-6 items-center"}>
         <div
           class={
