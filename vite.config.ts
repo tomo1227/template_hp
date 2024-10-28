@@ -10,7 +10,8 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { defineConfig, UserConfig, SSRTarget } from "vite";
-import theme from "./public/static/assets/theme.json";
+// import moonlight from "./public/static/assets/themes/moonlight-ii.json";
+// import { transformerNotationDiff } from '@shikijs/transformers';
 
 const entry = "./app/server.ts";
 
@@ -22,8 +23,10 @@ export default defineConfig(({ mode }): UserConfig => {
   }
 
   const codeOptions = {
-    theme: theme,
-    defaultLang: 'plaintext',
+    // see: https://shiki.style/themes#themes
+    theme: "material-theme-palenight",
+    grid:false,
+    defaultLang: "plaintext",
   }
   
   const commonConfig = {
