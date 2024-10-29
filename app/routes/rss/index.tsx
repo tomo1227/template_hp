@@ -6,8 +6,7 @@ const feeds = async () => await generatedRssFeed();
 export default createRoute(
   async (c) => {
     const rssFeed = await feeds();
-    return c.text(rssFeed, 200, {
-      "Content-Type": "application/rss+xml",
-    });
+    c.header('Content-Type', 'application/rss')
+    return c.text(rssFeed, 200);
   }
 );
