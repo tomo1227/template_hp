@@ -7,7 +7,7 @@ export default createRoute(
   async (c) => {
     const rssFeed = await feeds();
     return c.text(rssFeed, 200, {
-      "Content-Type": "text/rss+xml",
+      "Content-Type": "application/rss+xml",
     });
   }
 );
