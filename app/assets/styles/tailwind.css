@@ -52,13 +52,22 @@ body {
   @apply leading-tight text-3xl mb-0 mt-6 pb-2 font-bold;
 }
 
-.markdown h2 {
-  @apply leading-tight text-2xl mb-4 mt-6 pb-2 font-bold;
+
+html:not(.dark) .markdown h2 {
+  @apply leading-tight text-2xl mb-4 mt-6 pb-2 font-bold bg-amber-500 p-2 rounded;
+}
+html.dark .markdown h2 {
+  @apply leading-tight text-2xl mb-4 mt-6 pb-2 font-bold bg-amber-600 p-2 rounded;
 }
 
-.markdown h3 {
-  @apply leading-snug text-lg mb-4 mt-6 font-bold;
+
+html:not(.dark) .markdown h3 {
+  @apply leading-snug text-lg mb-4 mt-6 font-bold border border-amber-500 border-l-8 border-l-amber-500 p-1;
 }
+html.dark .markdown h3 {
+  @apply leading-snug text-lg mb-4 mt-6 font-bold border border-amber-600 border-l-8 border-l-amber-500 p-1;
+}
+
 
 .markdown h4 {
   @apply leading-none text-base mb-4 mt-6;
