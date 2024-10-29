@@ -11,11 +11,10 @@ export default async function generatedRssFeed() {
 
   const feed = new Feed({
     title: DEV_BLOG_URL,
-    description:
-      "Tomoki Otaのテックブログ",
+    description: "Tomoki Otaのテックブログ",
     id: DEV_BLOG_URL,
     link: baseUrl,
-    copyright: "© 2024 Tomoki Ota's HP Template. All rights reserved.",
+    copyright: "© 2024 Tomoki Ota's Blog. All rights reserved.",
     updated: date,
     // feedLinks: {
     //   rss2: `${DEV_BLOG_URL}/rss/feed.xml`,

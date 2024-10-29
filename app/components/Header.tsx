@@ -12,7 +12,7 @@ export const Header = (props: Props) => {
     >
       <a href="/" class={"flex items-center"}>
         <h2 class={"font-semibold text-center text-2xl max-md:text-xl"}>
-          My Blog Template
+          Tomoki Ota's Blog
         </h2>
       </a>
       <div class={"flex justify-center"}>
@@ -62,7 +62,7 @@ export const Header = (props: Props) => {
           </button>
         </a>
         <a
-          href="https://github.com/tomo1227/template_hp"
+          href="https://github.com/tomo1227/blog"
           target="_blank"
           rel="noopener noreferrer"
         >

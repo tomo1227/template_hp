@@ -1,5 +1,5 @@
 export const BLOG_TITLE = "Tomoki Ota's Blog";
-export const DEV_BLOG_URL = "https://template-hp.pages.dev";
+export const DEV_BLOG_URL = "https://tomomon-blog.pages.dev";
 
 const SECOND_MS = 1000;
 const MINUTE_MS = SECOND_MS * 60;
@@ -13,7 +13,7 @@ export const POSTS_PER_PAGE = 10;
 export const RELATED_POSTS_NUM = 6;
 export const RELATED_JOBS_NUM = 2;
 
-export const GITHUB_USERID = 'tomo1227';
-export const QIITA_USERID = 'twrcd1227';
+export const GITHUB_USERID = "tomo1227";
+export const QIITA_USERID = "twrcd1227";
 
 export const ARTICLES_PER_PAGE = 16;

@@ -43,9 +43,8 @@ export default createRoute(
         <div class={"flex flex-col mb-10 items-center"}>
           <TitleIcon iconUrl={post?.frontmatter.iconUrl ?? ""} />
           <h1
-            class={`text-center leading-tight text-3xl mb-0 mt-6 pb-2 font-bold flex justify-center md:auto-phrase ${
-              titleLen > 20 && "md:w-[90%]"
-            }`}
+            class={`text-center leading-tight text-3xl mb-0 mt-6 pb-2 font-bold flex justify-center md:auto-phrase ${titleLen > 20 && "md:w-[90%]"
+              }`}
           >
             {splitedTitle}
           </h1>
@@ -62,9 +61,8 @@ export default createRoute(
         <div class={"mt-10 flex items-center justify-center gap-2"}>
           <span>この記事をシェアする</span>
           <a
-            href={`https://twitter.com/intent/tweet?url=https://template-hp.pages.dev/entry/${
-              post?.entryName
-            }&text=${post?.frontmatter.title}${" - "}tomomon's blog`}
+            href={`https://twitter.com/intent/tweet?url=https://tomomon-blog.pages.dev/posts/${post?.entryName
+              }&text=${post?.frontmatter.title}${" - "}tomomon's blog`}
             referrerpolicy="no-referrer"
             class={"flex hover:opacity-70 transition-opacity"}
           >

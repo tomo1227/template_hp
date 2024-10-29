@@ -1,7 +1,7 @@
 export const Footer = () => (
   <footer class="flex justify-center items-center my-6 ">
     <p class="text-center text-sm text-gray-500 dark:text-gray-400">
-      &copy; 2024 Tomoki Ota's HP Template. All rights reserved.
+      &copy; 2024 Tomoki Ota's Blog. All rights reserved.
     </p>
   </footer>
 );

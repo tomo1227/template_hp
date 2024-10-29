@@ -225,6 +225,9 @@
   "errorLens.excludeBySource": [
     "cSpell"
   ],
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#05848b",
     "activityBar.background": "#05848b",
@@ -243,8 +246,5 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#03555a99",
     "titleBar.inactiveForeground": "#e7e7e799"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }
