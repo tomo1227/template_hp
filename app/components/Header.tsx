@@ -82,8 +82,10 @@ export const Header = (props: Props) => {
             </svg>
           </button>
         </a>
+
+
         <a
-          href="/rss"
+          href={import.meta.env.PROD ? "/rss.txt" : "/rss"}
           target="_blank"
           rel="noopener noreferrer"
         >
