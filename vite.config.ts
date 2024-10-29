@@ -10,7 +10,6 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { defineConfig, UserConfig, SSRTarget } from "vite";
-// import { transformerNotationDiff } from '@shikijs/transformers';
 
 const entry = "./app/server.ts";
 
@@ -65,7 +64,7 @@ export default defineConfig(({ mode }): UserConfig => {
       },
     },
     ssr: {
-      target: "node" as SSRTarget ,
+      target: "node" as SSRTarget,
       external: [
         "unified",
         "@mdx-js/mdx",
