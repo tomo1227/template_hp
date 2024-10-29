@@ -23,6 +23,8 @@
   "dependencies": {
     "@hono/vite-cloudflare-pages": "^0.4.2",
     "budoux": "^0.6.3",
+    "contentlayer": "^0.3.4",
+    "feed": "^4.2.2",
     "hono": "^4.6.7",
     "honox": "^0.1.26",
     "install": "^0.13.0",

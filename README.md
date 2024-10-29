@@ -28,6 +28,12 @@ bunx --bun vite
 
 http://localhost:3001/ (もしくは、自分で指定したポート) を開く
 
+## Emoji
+
+記事のアイコンは以下のサイトから取得する。
+
+https://fluent-ui.julienc.me/
+
 ## PORTの割り当て
 
 [.env](.env)でホストIPを変更すれば、他プロジェクトとポートが被っても使用できる。

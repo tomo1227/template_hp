@@ -1,5 +1,5 @@
 import { jsxRenderer } from "hono/jsx-renderer";
-import { Link, Script } from "honox/server";
+import { Script } from "honox/server";
 import { Header } from "../components/Header";
 import ThemeButton from "../islands/ThemeButton";
 import { Style } from "hono/css";
@@ -30,7 +30,6 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
         <Header>
           <ThemeButton />
         </Header>
-
         <main class="max-w-[780px] w-screen px-6 mt-6 flex-grow">
           <article>{children}</article>
         </main>
