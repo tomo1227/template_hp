@@ -91,7 +91,6 @@ html:not(.dark) .markdown code[data-theme*="everforest-light"] span {
   background-color: var(--shiki-light-bg);
 }
 html:not(.dark) .markdown code[data-theme*="everforest-light"] mark span {
-  /* color: inherit; */
   background-color: transparent;
 }
 
@@ -100,7 +99,6 @@ html.dark .markdown code[data-theme*="material-theme-palenight"] span {
   background-color: var(--shiki-dark-bg);
 }
 html.dark .markdown code[data-theme*="material-theme-palenight"] mark span {
-  /* color: inherit; */
   background-color: transparent;
 }
 
