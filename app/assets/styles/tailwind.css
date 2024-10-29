@@ -76,25 +76,42 @@ body {
   @apply text-sm border-l-4 border-gray-300 pl-4 pr-4 text-gray-600 dark:text-gray-300;
 }
 
-/* .markdown code:not([data-theme="material-theme"]) {
-  @apply font-mono text-sm inline rounded px-1.5 py-1 mx-0.5 tracking-wide;
-} */
 
-/* .markdown code:not([data-theme="material-theme"]) {
-  @apply font-mono text-sm inline tracking-wide;
-} */
+/* 複数テーマ */
+.markdown code[data-theme="material-theme-palenight everforest-light"] {
+  @apply font-mono text-sm rounded tracking-wide;
+}
 
-.markdown code[data-theme="material-theme-palenight"] {
-  @apply font-mono text-sm rounded px-1.5 py-1 mx-0.5 tracking-wide;
-} 
-
-/* themeをjsonで指定した際に適応 */
-/* .markdown code:not([data-theme="moonlight-ii"]) {
+.markdown code:not([data-theme="material-theme-palenight everforest-light"]) {
   @apply font-mono text-sm inline bg-gray-200 text-gray-600 dark:bg-gray-600 dark:text-gray-200 rounded px-1.5 py-1 mx-0.5 tracking-wide;
-} */
+}
 
-.markdown pre {
+html:not(.dark) .markdown code[data-theme*="everforest-light"] span {
+  color: var(--shiki-light);
+  background-color: var(--shiki-light-bg);
+}
+html:not(.dark) .markdown code[data-theme*="everforest-light"] mark span {
+  /* color: inherit; */
+  background-color: transparent;
+}
+
+html.dark .markdown code[data-theme*="material-theme-palenight"] span {
+  color: var(--shiki-dark);
+  background-color: var(--shiki-dark-bg);
+}
+html.dark .markdown code[data-theme*="material-theme-palenight"] mark span {
+  /* color: inherit; */
+  background-color: transparent;
+}
+
+html:not(.dark) .markdown pre[data-theme*="everforest-light"] {
   @apply bg-gray-100 rounded p-1;
+  background-color: var(--shiki-light-bg);
+}
+
+html.dark .markdown pre[data-theme*="material-theme-palenight"] {
+  @apply bg-gray-100 rounded p-1;
+  background-color: var(--shiki-dark-bg);
 }
 
 .markdown pre code {
