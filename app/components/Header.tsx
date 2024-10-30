@@ -7,15 +7,16 @@ export const Header = (props: Props) => {
   return (
     <header
       class={
-        "text-center border-b px-4 mx-2 max-md:px-2 dark:border-gray-500 w-full h-16 tracking-widest dark:text-gray-100 flex justify-between items-center"
+        "text-center border-b px-4 mx-2 max-md:px-2 dark:border-gray-500 w-full h-16 tracking-widest dark:text-gray-100 flex justify-between items-center max-md:flex-col max-md:h-auto"
       }
     >
-      <a href="/" class={"flex items-center"}>
-        <h2 class={"font-semibold text-center text-2xl max-md:text-xl"}>
+      <a href="/" class="flex items-center max-md:justify-center max-md:w-full">
+        <h2 class="font-semibold text-center text-2xl max-md:text-xl max-md:py-2">
           Tomoki Ota's Blog
         </h2>
       </a>
-      <div class={"flex justify-center"}>
+      {/* <div class="flex justify-center max-md:justify-end max-md:w-full"> */}
+      <div class="flex justify-center">
         <div class="mr-2">{props.children}</div>
         <a
           href="https://www.instagram.com/tomomon1227"
@@ -28,8 +29,7 @@ export const Header = (props: Props) => {
           >
             <svg
               class="dark:stroke-white dark:fill-white"
-              width="800px"
-              height="800px"
+              width="35"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               data-name="Layer 1"
@@ -50,7 +50,7 @@ export const Header = (props: Props) => {
           >
             <svg
               class="dark:stroke-white dark:fill-white"
-              width="24"
+              width="31"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -73,7 +73,7 @@ export const Header = (props: Props) => {
             <svg
               class="dark:stroke-white dark:fill-white"
               focusable="false"
-              viewBox="0 0 24 24"
+              viewBox="0 0 24 25"
               width="30"
               data-testid="GitHubIcon"
             >
@@ -82,8 +82,6 @@ export const Header = (props: Props) => {
             </svg>
           </button>
         </a>
-
-
         <a
           href={import.meta.env.PROD ? "/rss.txt" : "/rss"}
           target="_blank"
@@ -93,24 +91,14 @@ export const Header = (props: Props) => {
             class="dark:text-white h-10 w-10 flex justify-center rounded-xl transition-opacity hover:opacity-70 items-center"
             type="button"
           >
-            <svg
-              class="dark:stroke-white"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-            >
-              <title>RSS link</title>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12.75 19.5v-.75a7.5 7.5 0 00-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-              />
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" fill="currentColor" class="bi bi-rss" viewBox="0 0 16 17">
+              <title>rss link</title>
+              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+              <path d="M5.5 12a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-3-8.5a1 1 0 0 1 1-1c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1-1-1zm0 4a1 1 0 0 1 1-1 6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1-1-1z" />
             </svg>
           </button>
         </a>
-      </div>
-    </header>
+      </div >
+    </header >
   );
 };
