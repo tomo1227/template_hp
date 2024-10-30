@@ -11,7 +11,7 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {<title>{title ?? frontmatter?.title ?? "My Blog"}</title>}
+        {<title>{title ?? frontmatter?.title ?? "Tomoki Ota's Blog"}</title>}
         {import.meta.env.PROD ? (
           <script src="/static/assets/theme.js" />
         ) : (
