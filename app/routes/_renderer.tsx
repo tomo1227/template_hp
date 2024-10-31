@@ -5,13 +5,13 @@ import ThemeButton from "../islands/ThemeButton";
 import { Style } from "hono/css";
 import { Footer } from "../components/Footer";
 
-export default jsxRenderer(({ children, title, frontmatter }) => {
+export default jsxRenderer(({ children, frontmatter }) => {
   return (
     <html lang="ja">
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        {<title>{title ?? frontmatter?.title ?? "Tomoki Ota's Blog"}</title>}
+        {<title>{frontmatter?.title ?? "Tomoki Ota's Blog"}</title>}
         {import.meta.env.PROD ? (
           <script src="/static/assets/theme.js" />
         ) : (
