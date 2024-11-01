@@ -31,10 +31,16 @@ export default jsxRenderer(({ children, title, frontmatter }) => {
           <ThemeButton />
         </Header>
         <main class="max-w-[780px] w-screen px-6 mt-6 flex-grow">
+          <div id="toc"></div>
           <article>{children}</article>
         </main>
         <Footer />
       </body>
+      {import.meta.env.PROD ? (
+        <script type="module" src="/components/assets/toc.js" />
+      ) : (
+        <script type="module" src="/app/assets/toc.ts" />
+      )}
     </html>
   );
 });
