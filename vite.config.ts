@@ -94,7 +94,7 @@ export default defineConfig(({ mode }): UserConfig => {
             "/app/assets/styles/toc.css",
             "/app/assets/styles/tailwind.css",
             "/app/assets/theme.ts",
-            "/app/assets/toc.ts",
+            "/app/assets/tocbot.ts",
           ],
           output: {
             entryFileNames: "static/assets/[name].js",
