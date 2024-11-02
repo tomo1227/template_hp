@@ -90,7 +90,6 @@ export default createRoute(
             </div>
           </div>
         )}
-        {/* <Footer /> */}
       </div>,
       {
         title: pageTitle,
