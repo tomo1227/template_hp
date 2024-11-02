@@ -8,7 +8,13 @@
   max-height: 80vh;
   padding: 5px;
   z-index: 1000;
+  overflow-y: auto;
+  scrollbar-width: none;
 }
+#toc::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edgeでスクロールバーを非表示にする */
+}
+
 
 #toc ol {
   list-style: none;
@@ -48,10 +54,6 @@
   @apply list-none w-full rounded-md py-0 my-0;
 }
 
-/* .is-active-link {
-  @apply text-yellow-300 bg-gray-500 font-bold;
-} */
-
 html:not(.dark) .is-active-link {
   @apply text-amber-300 bg-gray-500 font-bold;
 }
@@ -60,6 +62,23 @@ html.dark .is-active-link {
   @apply text-amber-300 bg-gray-500 font-bold;
 }
 
+.is-active-link{
+  font-weight:700
+}
+
+/* .toc-link::before{
+  background-color:#eee;
+  content:" ";
+  display:inline-block;
+  height:inherit;
+  left:0;
+  margin-top:-1px;
+  position:absolute;
+  width:2px
+}
+.is-active-link::before{
+  background-color:#54bc4b
+} */
 .toc{
   overflow-y:auto
 }
