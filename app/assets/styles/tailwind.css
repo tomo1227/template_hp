@@ -1,5 +1,4 @@
 @import "./syntax-highlight.css";
-@import "./toc.css";
 
 @tailwind base;
 @tailwind components;

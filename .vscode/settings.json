@@ -14,9 +14,6 @@
     "editor.insertSpaces": true,
     "files.insertFinalNewline": true
   },
-  "files.associations": {
-    "*.css": "tailwindcss"
-  },
   "editor.rulers": [120],
   "[markdown]": {
     "editor.formatOnSave": true,
@@ -60,6 +57,13 @@
     }
   },
   "yaml.format.enable": true,
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true,
+    "files.insertFinalNewline": true
+  },
   "cSpell.words": [
     "Codecov",
     "devcontainer",
@@ -218,7 +222,9 @@
     }
   ],
   "cSpell.ignorePaths": [".vscode", ".devcontainer/devcontainer.json"],
-  "errorLens.excludeBySource": ["cSpell"],
+  "errorLens.excludeBySource": [
+    "cSpell"
+  ],
   "[typescriptreact]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },

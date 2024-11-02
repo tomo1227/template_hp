@@ -40,8 +40,7 @@
         "ms-vsliveshare.vsliveshare",
         "usernamehw.errorlens",
         "formulahendry.code-runner",
-        "ms-vscode.live-server",
-        "bradlc.vscode-tailwindcss"
+        "ms-vscode.live-server"
       ]
     }
   }

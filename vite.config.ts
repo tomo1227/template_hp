@@ -9,7 +9,6 @@ import remarkGfm from "remark-gfm";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import rehypeSlug from "rehype-slug";
 import { defineConfig, UserConfig, SSRTarget } from "vite";
 
 const entry = "./app/server.ts";
@@ -28,8 +27,9 @@ export default defineConfig(({ mode }): UserConfig => {
       light: "everforest-light",
     },
     defaultLang: "plaintext",
-  };
+  }
 
+  
   const commonConfig = {
     plugins: [
       ssg({ entry }),
@@ -52,13 +52,17 @@ export default defineConfig(({ mode }): UserConfig => {
           remarkGfm,
           remarkParse,
         ],
-        rehypePlugins: [
-          rehypeSlug,
-          rehypeStringify,
-          [rehypePrettyCode, highlightOptions],
-        ],
+        rehypePlugins: [rehypeStringify, [rehypePrettyCode, highlightOptions]],
       }),
     ],
+    server: {
+      port: 3001,
+      host: "0.0.0.0",
+      watch: {
+        usePolling: true, // コンテナ環境での監視方法を変更
+        interval: 1000,
+      },
+    },
     ssr: {
       target: "node" as SSRTarget,
       external: [
@@ -69,43 +73,29 @@ export default defineConfig(({ mode }): UserConfig => {
         "feed",
         "budoux",
         "jsdom",
-        "tocbot",
       ],
-    },
-    server: {
-      port: 3001,
-      host: "0.0.0.0",
-      watch: {
-        usePolling: true, // コンテナ環境での監視方法を変更
-        interval: 1000,
-      },
-    },
+    }
   };
 
-  // if (mode === "production") {
-  return {
-    ...commonConfig,
-    build: {
-      assetsDir: "static",
-      emptyOutDir: false,
-      ssrEmitAssets: true,
-      rollupOptions: {
-        input: [
-          "/app/assets/styles/toc.css",
-          "/app/assets/styles/tailwind.css",
-          "/app/assets/theme.ts",
-          "/app/assets/toc.ts",
-        ],
-        output: {
-          entryFileNames: "static/assets/[name].js",
-          assetFileNames: () => {
-            return "static/assets/[name].[ext]";
+  if (mode === "production") {
+    return {
+      ...commonConfig,
+      build: {
+        assetsDir: "static",
+        emptyOutDir: false,
+        ssrEmitAssets: true,
+        rollupOptions: {
+          input: ["/app/assets/styles/tailwind.css", "/app/assets/theme.ts"],
+          output: {
+            entryFileNames: "static/assets/[name].js",
+            assetFileNames: () => {
+              return "static/assets/[name].[ext]";
+            },
           },
         },
-      },
-    },
-  };
-  // }
+      }
+    };
+  }
 
   return commonConfig;
 });
