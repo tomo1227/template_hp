@@ -1,3 +1,5 @@
+/** @jsxImportSource hono/jsx */
+
 type AccordionProps = {
   title: string;
   children: any;
