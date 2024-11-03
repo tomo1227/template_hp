@@ -91,14 +91,19 @@ export const Header = (props: Props) => {
             class="dark:text-white h-10 w-10 flex justify-center rounded-xl transition-opacity hover:opacity-70 items-center"
             type="button"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" fill="currentColor" class="bi bi-rss" viewBox="0 0 16 17">
+            <svg
+              class="dark:stroke-white dark:fill-white"
+              fill="#000000"
+              width="34"
+              viewBox="0 0 512 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <title>rss link</title>
-              <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-              <path d="M5.5 12a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-3-8.5a1 1 0 0 1 1-1c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1-1-1zm0 4a1 1 0 0 1 1-1 6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1-1-1z" />
+              <path d="M368 448Q366 364 327 295 288 226 220 186 151 145 64 144L64 64Q171 66 258 116 345 166 396 253 446 339 448 448L368 448ZM232 448Q229 373 184 328 138 282 64 280L64 200Q133 202 189 234 245 265 278 321 310 376 312 448L232 448ZM112 448Q92 448 78 434 64 420 64 400 64 380 78 366 92 352 112 352 132 352 146 366 160 380 160 400 160 420 146 434 132 448 112 448Z" />
             </svg>
           </button>
         </a>
-      </div >
-    </header >
+      </div>
+    </header>
   );
 };
