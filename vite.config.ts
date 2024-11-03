@@ -82,30 +82,30 @@ export default defineConfig(({ mode }): UserConfig => {
     },
   };
 
-  // if (mode === "production") {
-  return {
-    ...commonConfig,
-    build: {
-      assetsDir: "static",
-      emptyOutDir: false,
-      ssrEmitAssets: true,
-      rollupOptions: {
-        input: [
-          "/app/assets/styles/toc.css",
-          "/app/assets/styles/tailwind.css",
-          "/app/assets/theme.ts",
-          "/app/assets/toc.ts",
-        ],
-        output: {
-          entryFileNames: "static/assets/[name].js",
-          assetFileNames: () => {
-            return "static/assets/[name].[ext]";
+  if (mode === "production") {
+    return {
+      ...commonConfig,
+      build: {
+        assetsDir: "static",
+        emptyOutDir: false,
+        ssrEmitAssets: true,
+        rollupOptions: {
+          input: [
+            "/app/assets/styles/toc.css",
+            "/app/assets/styles/tailwind.css",
+            "/app/assets/theme.ts",
+            "/app/assets/tocbot.ts",
+          ],
+          output: {
+            entryFileNames: "static/assets/[name].js",
+            assetFileNames: () => {
+              return "static/assets/[name].[ext]";
+            },
           },
         },
       },
-    },
-  };
-  // }
+    };
+  }
 
   return commonConfig;
 });

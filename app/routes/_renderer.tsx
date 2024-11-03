@@ -37,9 +37,9 @@ export default jsxRenderer(({ children, frontmatter }) => {
         <Footer />
       </body>
       {import.meta.env.PROD ? (
-        <script type="module" src="/components/assets/toc.js" />
+        <script type="module" src="/static/assets/tocbot.js" />
       ) : (
-        <script type="module" src="/app/assets/toc.ts" />
+        <script type="module" src="/app/assets/tocbot.ts" />
       )}
     </html>
   );
