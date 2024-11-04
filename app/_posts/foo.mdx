@@ -8,7 +8,7 @@ iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/
 ---
 
 
-# Foo 
+# Foo
 
 ## Foo
 
@@ -17,13 +17,12 @@ iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/
 *Foo*
 **Foo**
 
-
 fooo!
 
 ```go showLineNumbers title="defer.go" /defer/#s
 func main() {
-	defer fmt.Println("２番目に実行")
-	fmt.Println("最初に実行")
+    defer fmt.Println("２番目に実行")
+    fmt.Println("最初に実行")
 }
 ```
 
@@ -31,7 +30,7 @@ a
 
 ```
 int main() {
-	print("abdcd")
+    print("abdcd")
 }
 ```
 
@@ -92,7 +91,7 @@ The result of `[1, 2, 3].join('-'){:js}` is `'1-2-3'{:js}`.
 `function{:.string}`
 
 When we refer to `getStringLength{:.entity.name.function}` as a plain variable,
-we can color it as a function. 
+we can color it as a function.
 
 ### Context Aware Inline Code
 
@@ -129,30 +128,40 @@ Inline ANSI: `> Local: [0;36mhttp://localhost:[0;36;1m3000[0;36m/[0m{:ansi}`
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Styles](#styles)
-- [Options](#options)
-  - [grid](#grid)
-  - [theme](#theme)
-  - [keepBackground](#keepbackground)
-  - [bypassInlineCode](#bypassInlineCode)
-  - [defaultLang](#defaultlang)
-  - [transformers](#transformers)
-- [Meta Strings](#meta-strings)
-  - [Highlight Lines](#highlight-lines)
-  - [Group Highlighted Lines By Id](#group-highlighted-lines-by-id)
-  - [Highlight Chars](#highlight-chars)
-  - [Group Highlighted Chars By Id](#group-highlighted-chars-by-id)
-  - [Highlight Inline Code](#highlight-inline-code)
-  - [Highlight Plain Text](#highlight-plain-text)
-  - [Titles](#titles)
-  - [Captions](#captions)
-- [Line Numbers](#line-numbers)
-- [Multiple Themes (Dark and Light Mode)](#multiple-themes-dark-and-light-mode)
-- [Visitor Hooks](#visitor-hooks)
-- [Custom Highlighter](#custom-highlighter)
-- [React Server Component](#react-server-component)
+* [Foo](#foo)
+  * [Foo](#foo-1)
+    * [Foo](#foo-2)
+  * [Editor-Grade Highlighting](#editor-grade-highlighting)
+  * [Line Numbers and Line Highlighting](#line-numbers-and-line-highlighting)
+  * [Word Highlighting](#word-highlighting)
+  * [Inline Code Highlighting](#inline-code-highlighting)
+    * [Context Aware Inline Code](#context-aware-inline-code)
+  * [ANSI Highlighting](#ansi-highlighting)
+  * [Table of Contents](#table-of-contents)
+  * [Installation](#installation)
+  * [Usage](#usage)
+    * [MDX](#mdx)
+  * [Styles](#styles)
+  * [Options](#options)
+    * [`grid{:.meta.object-literal.key}`](#gridmetaobject-literalkey)
+    * [`theme{:.meta.object-literal.key}`](#thememetaobject-literalkey)
+    * [`keepBackground{:.meta.object-literal.key}`](#keepbackgroundmetaobject-literalkey)
+    * [`defaultLang{:.meta.object-literal.key}`](#defaultlangmetaobject-literalkey)
+    * [`transformers{:.meta.object-literal.key}`](#transformersmetaobject-literalkey)
+  * [Meta Strings](#meta-strings)
+      * [Highlight Lines](#highlight-lines)
+      * [Group Highlighted Lines By Id](#group-highlighted-lines-by-id)
+      * [Highlight Chars](#highlight-chars)
+      * [Group Highlighted Chars By Id](#group-highlighted-chars-by-id)
+      * [Highlight Inline Code](#highlight-inline-code)
+      * [Highlight Plain Text](#highlight-plain-text)
+      * [Titles](#titles)
+      * [Captions](#captions)
+  * [Line Numbers](#line-numbers)
+  * [Multiple Themes (Dark and Light Mode)](#multiple-themes-dark-and-light-mode)
+  * [Visitor Hooks](#visitor-hooks)
+  * [Custom Highlighter](#custom-highlighter)
+  * [React Server Component](#react-server-component)
 
 ---
 
