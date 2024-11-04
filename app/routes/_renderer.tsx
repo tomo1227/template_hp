@@ -1,9 +1,10 @@
+import { Style } from "hono/css";
 import { jsxRenderer } from "hono/jsx-renderer";
 import { Script } from "honox/server";
+import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import ThemeButton from "../islands/ThemeButton";
-import { Style } from "hono/css";
-import { Footer } from "../components/Footer";
+
 
 export default jsxRenderer(({ children, frontmatter }) => {
   return (
@@ -11,6 +12,7 @@ export default jsxRenderer(({ children, frontmatter }) => {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={frontmatter?.description ?? "フロントエンドからバックエンドまで日々の開発で得た知見や最新の技術トレンドを発信します。"} />
         {<title>{frontmatter?.title ?? "Tomoki Ota's Blog"}</title>}
         {import.meta.env.PROD ? (
           <script src="/static/assets/theme.js" />
