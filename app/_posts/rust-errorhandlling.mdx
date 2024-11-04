@@ -18,7 +18,7 @@ Rustには2種類のエラーが存在する。
 
 Rustには例外が存在しない。他言語ではこれらのエラーを区別することはなく、例外にしていることが多い。
 
-## panic!
+## panic
 
 panic!はマクロ。
 パニックが発生すると、プログラムはロールバックする。言語がスタックを遡り、 遭遇した各関数のデータをclean upする。
@@ -47,11 +47,12 @@ fn main() {
 
 実行結果は以下のようになる。
 
-```shell 
+```shell
 thread 'main' panicked at src/main.rs:2:5:
 パニック！
 note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 ```
+
 また、abortをすると以下のようになる。
 
 ```shell
@@ -170,7 +171,7 @@ stack backtrace:
 
 </Accordion>
 
-##  Result
+## Result
 
 Resultは、回復可能なエラーである。
 
@@ -424,7 +425,6 @@ fn peel(food: Option<Food>) -> Option<Peeled> {
 
 [Rust Playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=0086927ef1b895ebcbaa385a008ad583)
 
-
 ```rust showLineNumbers
 fn peel(food: Option<Food>) -> Option<Peeled> {
     food.map(Peeled)
@@ -445,7 +445,6 @@ fn process(food: Option<Food>) -> Option<Cooked> {
         .map(|Chopped(f)| Cooked(f))
 }
 ```
-
 
 ### Combinators: and_then
 
@@ -914,17 +913,16 @@ fn main() {
     // エラー: the provided string could not be parsed as int
 }
 ```
+
 ## そのほかの手段
 
 ### Resultのイテレート
 
 [Resultをイテレートする - Rust By Example 日本語版](https://doc.rust-jp.rs/rust-by-example-ja/error/iter_result.html)
 
-
 ### thiserror クレート
 
 [thiserrorでカスタムエラーを実装する](https://zenn.dev/hideoka/articles/e2408b1eb8ee3f)
-
 
 ### anyhow クレート
 

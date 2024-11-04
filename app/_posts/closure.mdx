@@ -23,27 +23,27 @@ https://doc.rust-jp.rs/book-ja/ch13-01-closures.html のrustの記事がすご�
 ```go showLineNumbers
 // 強度から適切な回数を計算する(重い処理)
 func calcTrainingReps(intensity int) int {
-	fmt.Println("ゆっくり計算中・・・")
-	time.Sleep(2 * time.Second)
-	return intensity
+    fmt.Println("ゆっくり計算中・・・")
+    time.Sleep(2 * time.Second)
+    return intensity
 }
 
 // トレーニングメニューを生成する
 func generateTrainingMenu(intensity int, randomNum int) {
-	if intensity < 25 {
-		fmt.Printf("今日は、%d回腕立てをしなさい!\n", calcTrainingReps(intensity))
-		fmt.Printf("次の日は、%d回腹筋をしなさい!\n", calcTrainingReps(intensity))
-	} else {
-		if randomNum == 3 {
-			fmt.Println("今日は休みましょう!")
-		} else {
-			fmt.Printf("今日は%d分走りなさい!\n", calcTrainingReps(intensity))
-		}
-	}
+    if intensity < 25 {
+        fmt.Printf("今日は、%d回腕立てをしなさい!\n", calcTrainingReps(intensity))
+        fmt.Printf("次の日は、%d回腹筋をしなさい!\n", calcTrainingReps(intensity))
+    } else {
+        if randomNum == 3 {
+            fmt.Println("今日は休みましょう!")
+        } else {
+            fmt.Printf("今日は%d分走りなさい!\n", calcTrainingReps(intensity))
+        }
+    }
 }
 
 func main() {
-	generateTrainingMenu(10, 7)
+    generateTrainingMenu(10, 7)
 }
 ```
 
@@ -60,28 +60,28 @@ generateTrainingMenu関数の期待される振る舞いは、まずユーザが
 ```go showLineNumbers
 // 強度から適切な回数を計算する
 func caluculateTrainingReps(intensity int) int {
-	fmt.Println("ゆっくり計算中・・・")
-	time.Sleep(2 * time.Second)
-	return intensity
+    fmt.Println("ゆっくり計算中・・・")
+    time.Sleep(2 * time.Second)
+    return intensity
 }
 
 // トレーニングメニューを生成する
 func generateTrainingMenu(intensity int, randomNum int) {
-	reps := caluculateTrainingReps(intensity)
-	if intensity < 25 {
-		fmt.Printf("今日は、%d回腕立てをしなさい!\n", reps)
-		fmt.Printf("次の日は、%d回腹筋をしなさい!\n", reps)
-	} else {
-		if randomNum == 3 {
-			fmt.Println("今日は休みましょう!")
-		} else {
-			fmt.Printf("今日は%d分走りなさい!\n", reps)
-		}
-	}
+    reps := caluculateTrainingReps(intensity)
+    if intensity < 25 {
+        fmt.Printf("今日は、%d回腕立てをしなさい!\n", reps)
+        fmt.Printf("次の日は、%d回腹筋をしなさい!\n", reps)
+    } else {
+        if randomNum == 3 {
+            fmt.Println("今日は休みましょう!")
+        } else {
+            fmt.Printf("今日は%d分走りなさい!\n", reps)
+        }
+    }
 }
 
 func main() {
-	generateTrainingMenu(10, 7)
+    generateTrainingMenu(10, 7)
 }
 ```
 
@@ -90,26 +90,26 @@ func main() {
 ```go showLineNumbers
 // トレーニングメニューを生成する
 func generateTrainingMenu(intensity int, randomNum int) {
-	reps := func(num int) int {
-		fmt.Println("ゆっくり計算中・・・")
-		time.Sleep(2 * time.Second)
-		return num
-	}(intensity)
+    reps := func(num int) int {
+        fmt.Println("ゆっくり計算中・・・")
+        time.Sleep(2 * time.Second)
+        return num
+    }(intensity)
 
-	if intensity < 25 {
-		fmt.Printf("今日は、%d回腕立てをしなさい!\n", reps)
-		fmt.Printf("次の日は、%d回腹筋をしなさい!\n", reps)
-	} else {
-		if randomNum == 3 {
-			fmt.Println("今日は休みましょう!")
-		} else {
-			fmt.Printf("今日は%d分走りなさい!\n", reps)
-		}
-	}
+    if intensity < 25 {
+        fmt.Printf("今日は、%d回腕立てをしなさい!\n", reps)
+        fmt.Printf("次の日は、%d回腹筋をしなさい!\n", reps)
+    } else {
+        if randomNum == 3 {
+            fmt.Println("今日は休みましょう!")
+        } else {
+            fmt.Printf("今日は%d分走りなさい!\n", reps)
+        }
+    }
 }
 
 func main() {
-	generateTrainingMenu(10, 7)
+    generateTrainingMenu(10, 7)
 }
 ```
 
@@ -208,7 +208,6 @@ func main() {
     fmt.Println(increment()) // Output: 3
 }
 ```
-
 
 ## 関数の合成
 
