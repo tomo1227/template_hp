@@ -31,3 +31,23 @@ http://localhost:3001/ (もしくは、自分で指定したポート) を開く
 記事のアイコンは以下のサイトから取得する。
 
 https://fluent-ui.julienc.me/
+
+## deploy
+
+[node_modules/wrangler/wrangler-dist/cli.js](node_modules/wrangler/wrangler-dist/cli.js )を以下のように修正する。
+
+```diff
+function markResourceTiming(timingInfo, originalURL, initiatorType, globalThis2, cacheState) {
+-  if (nodeMajor > 18 || nodeMajor === 18 && nodeMinor >= 2) {
+-    performance.markResourceTiming(timingInfo, originalURL.href, initiatorType, globalThis2, cacheState);
+-  }
++  // if (nodeMajor > 18 || nodeMajor === 18 && nodeMinor >= 2) {
++  //   performance.markResourceTiming(timingInfo, originalURL.href, initiatorType, globalThis2, cacheState);
++  // }
+}
+```
+
+```shell
+bun --bunx login
+bun --bunx wrangler pages deploy
+```
