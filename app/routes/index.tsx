@@ -15,6 +15,7 @@ export default createRoute((c) => {
             updatedDate={post.frontmatter.updatedDate}
             description={post.frontmatter.description}
             iconUrl={post.frontmatter.iconUrl}
+            tags={post.frontmatter.tags}
             entryName={post.entryName}
           />
         </Fragment>
