@@ -16,6 +16,10 @@ export default createRoute(
   }),
   async (c) => {
     const tag = c.req.param('slug');
+    if (!tag || tag.trim() === "") {
+      return c.notFound();
+    }
+
     const posts = await getPostsFilteredByTag(tag);
 
     if (posts.length === 0) {
