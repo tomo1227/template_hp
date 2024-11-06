@@ -17,20 +17,23 @@ import { Parser } from "budoux/dist/parser";
 const parser = new Parser(jaModel);
 
 export default createRoute(
-  ssgParams(() => {
-    const posts = getPosts();
+  ssgParams(async () => {
+    const posts = await getPosts();
     return posts.map((post) => ({
       slug: post.entryName,
     }));
   }),
   async (c) => {
     const slug = c.req.param("slug");
-    if (slug === ":slug") {
-      c.status(404);
-      return c.text("Not Found");
+    if (!slug) {
+      return c.notFound();
     }
 
-    const post = getPostByEntryName(slug);
+    const post = await getPostByEntryName(slug);
+    if (!post) {
+      return c.notFound();
+    }
+
     const pageTitle = post?.frontmatter.title ?? "";
     const createdDate = formattedDate(post?.frontmatter.createdDate ?? "");
     const updatedDate = formattedDate(post?.frontmatter.updatedDate ?? "");
