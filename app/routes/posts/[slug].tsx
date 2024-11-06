@@ -29,6 +29,7 @@ export default createRoute(
       c.status(404);
       return c.text("Not Found");
     }
+    console.log("c??:", c)
 
     const post = getPostByEntryName(slug);
     const pageTitle = post?.frontmatter.title ?? "";
