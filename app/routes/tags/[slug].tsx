@@ -1,5 +1,5 @@
 import { createRoute } from "honox/factory";
-import { getPosts, getPostsFilteredByTag } from "../../components/feature/blogs/sorts";
+import { getPostsFilteredByTag, getTags } from "../../components/feature/blogs/sorts";
 import { ArticleListItem } from "../../components/feature/blogs/AritclesListItems";
 import { Fragment } from "hono/jsx/jsx-runtime";
 import { TitleIcon } from "../../components/parts/TitleIcon";
@@ -7,12 +7,10 @@ import { ssgParams } from "hono/ssg";
 
 export default createRoute(
   ssgParams(async () => {
-    const posts = await getPosts();
-    return posts.flatMap((post) =>
-      post.frontmatter.tags.map((tag) => ({
-        slug: tag,
-      }))
-    );
+    const tags = getTags();
+    return tags.map((tag) => ({
+      slug: tag,
+    }));
   }),
   async (c) => {
     const tag = c.req.param('slug');

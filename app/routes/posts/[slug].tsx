@@ -60,9 +60,9 @@ export default createRoute(
               <li key={tag} class="inline-block">
                 <a
                   href={`/tags/${tag}`}
-                  class="relative inline-block h-7 leading-7 px-3 pl-2 bg-blue-500 rounded-full text-white text-xs no-underline transition duration-200 hover:bg-gray-700"
+                  class="relative inline-block h-7 leading-7 px-3 bg-sky-500 rounded-full text-white text-xs no-underline transition duration-200 hover:bg-gray-700"
                 >
-                  <span class="pr-1">#</span>{tag}
+                  {tag}
                 </a>
               </li>
             ))}

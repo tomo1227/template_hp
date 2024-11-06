@@ -37,6 +37,14 @@ export const getPosts = () => {
   return postsData;
 };
 
+export const getTags = () => {
+  const posts = getPosts();
+  const tags = posts.flatMap((post) => post.frontmatter.tags || []);
+  const uniqueTags = [...new Set(tags)];
+
+  return uniqueTags;
+};
+
 export const getPostByEntryName = (entryName: string) => {
   const posts = getPosts();
   const post = posts.find((post) => post.entryName === entryName);
