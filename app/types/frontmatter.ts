@@ -3,6 +3,6 @@ export type Frontmatter = {
   createdDate: string;
   updatedDate: string;
   description: string;
-  category?: string;
+  tags?: string[];
   iconUrl: string;
 };
