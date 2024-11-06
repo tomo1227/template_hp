@@ -17,13 +17,13 @@ export default createRoute(
   async (c) => {
     const tag = c.req.param('slug');
     if (!tag || tag.trim() === "") {
-      return c.notFound();
+      return c.notFound()
     }
 
     const posts = await getPostsFilteredByTag(tag);
 
     if (posts.length === 0) {
-      return c.text(`${tag} に関する投稿は存在しません。`, 404);
+      return c.notFound()
     }
 
     return c.render(
