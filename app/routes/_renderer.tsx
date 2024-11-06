@@ -4,18 +4,10 @@ import { Script } from "honox/server";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import ThemeButton from "../islands/ThemeButton";
-import { ssgParams } from "hono/ssg";
 import { getTags } from "../components/feature/blogs/sorts";
 
 
 export default jsxRenderer(({ children, frontmatter }) => {
-  // ssgParams(async () => {
-  //   const tags = getTags();
-  //   return tags.map((tag) => ({
-  //     slug: tag,
-  //   }));
-  // }),
-  // async () => {
   const tags = getTags();
 
   return (
