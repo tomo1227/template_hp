@@ -15,6 +15,8 @@ export default createRoute((c) => {
   if (posts.length === 0) {
     return c.text(`タグ「${tag}」に一致する投稿はありません。`, 404);
   }
+  console.log("posts!:", posts)
+  console.log("c!:", c)
 
   return c.render(
     <div>
