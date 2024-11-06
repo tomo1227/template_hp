@@ -1,14 +1,13 @@
 import { createRoute } from "honox/factory";
-import { getPostsFilteredByTag } from "../../components/feature/blogs/sorts";
+import { getPosts, getPostsFilteredByTag } from "../../components/feature/blogs/sorts";
 import { ArticleListItem } from "../../components/feature/blogs/AritclesListItems";
 import { Fragment } from "hono/jsx/jsx-runtime";
 import { TitleIcon } from "../../components/parts/TitleIcon";
 import { ssgParams } from "hono/ssg";
 
 export default createRoute(
-  ssgParams((c) => {
-    const tag = c.req.param("slug");
-    const posts = getPostsFilteredByTag(tag);
+  ssgParams(() => {
+    const posts = getPosts();
     return posts.map((post) => ({
       slug: post.entryName,
     }));
