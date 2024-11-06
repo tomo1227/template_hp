@@ -5,16 +5,16 @@
   right: 3vw;
   width: 20vw;
   max-width: 250px;
-  max-height: 80vh;
+  max-height: 65vh;
   padding: 5px;
   z-index: 1000;
   overflow-y: auto;
+  overscroll-behavior: none;
   scrollbar-width: none;
 }
 #toc::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edgeでスクロールバーを非表示にする */
 }
-
 
 #toc ol {
   list-style: none;

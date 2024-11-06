@@ -4,9 +4,12 @@ import { Script } from "honox/server";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import ThemeButton from "../islands/ThemeButton";
+import { getTags } from "../components/feature/blogs/sorts";
 
 
 export default jsxRenderer(({ children, frontmatter }) => {
+  const tags = getTags();
+
   return (
     <html lang="ja">
       <head>
@@ -32,10 +35,26 @@ export default jsxRenderer(({ children, frontmatter }) => {
         <Header>
           <ThemeButton />
         </Header>
-        <main class="max-w-[780px] w-screen px-6 mt-6 flex-grow">
-          <div id="toc"></div>
-          <article>{children}</article>
-        </main>
+        <div id="main-contents" class="flex flex-row">
+          <aside id="side-tag-bar" class="w-1/6 p-4 in-h-screen flex-start fixed left-10 mt-9 md:block hidden">
+            <nav>
+              <ul class="flex flex-wrap gap-2 mt-20 p-0 list-none">
+                {tags.map((tag) => (
+                  <li key={tag} class="inline-block">
+                    <a href={`/tags/${tag}`}
+                      class="relative inline-block h-7 leading-7 px-3 bg-sky-500 rounded-full text-white text-xs no-underline transition duration-200 hover:bg-gray-700"
+                    >{tag}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+          <main class="max-w-[780px] w-screen px-6 mt-6 flex-grow">
+            <div id="toc"></div>
+            <article>{children}</article>
+          </main>
+        </div>
         <Footer />
       </body>
       {import.meta.env.PROD ? (
@@ -45,4 +64,5 @@ export default jsxRenderer(({ children, frontmatter }) => {
       )}
     </html>
   );
+  // }
 });

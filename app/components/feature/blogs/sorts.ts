@@ -37,6 +37,14 @@ export const getPosts = () => {
   return postsData;
 };
 
+export const getTags = () => {
+  const posts = getPosts();
+  const tags = posts.flatMap((post) => post.frontmatter.tags || []);
+  const uniqueTags = [...new Set(tags)];
+
+  return uniqueTags;
+};
+
 export const getPostByEntryName = (entryName: string) => {
   const posts = getPosts();
   const post = posts.find((post) => post.entryName === entryName);
@@ -47,4 +55,9 @@ export const getLatestPostsWithoutTargetPost = (postEntryName: string) => {
   const posts = getPosts();
   const latestPosts = posts.filter((post) => post.entryName !== postEntryName);
   return latestPosts.slice(0, 3);
+};
+
+export const getPostsFilteredByTag = (tag: string) => {
+  const allPosts = getPosts();
+  return allPosts.filter((post) => post.frontmatter.tags?.includes(tag));
 };

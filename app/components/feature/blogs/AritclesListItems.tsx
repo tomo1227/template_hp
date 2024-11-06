@@ -6,6 +6,7 @@ type Props = {
   updatedDate: string;
   description: string;
   iconUrl: string;
+  tags: string[];
   entryName: string;
 };
 export const ArticleListItem = (props: Props) => {

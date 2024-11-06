@@ -5,6 +5,7 @@ import { Fragment } from "hono/jsx/jsx-runtime";
 
 export default createRoute((c) => {
   const posts = getPosts();
+
   return c.render(
     <div class={"mt-6 flex flex-col gap-12"}>
       {posts.map((post) => (
@@ -15,6 +16,7 @@ export default createRoute((c) => {
             updatedDate={post.frontmatter.updatedDate}
             description={post.frontmatter.description}
             iconUrl={post.frontmatter.iconUrl}
+            tags={post.frontmatter.tags}
             entryName={post.entryName}
           />
         </Fragment>
