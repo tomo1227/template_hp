@@ -1,9 +1,9 @@
 import { createRoute } from "honox/factory";
 import { getPostsFilteredByTag, getTags } from "../../components/feature/blogs/sorts";
-import { ArticleListItem } from "../../components/feature/blogs/AritclesListItems";
 import { Fragment } from "hono/jsx/jsx-runtime";
 import { TitleIcon } from "../../components/parts/TitleIcon";
 import { ssgParams } from "hono/ssg";
+import { ArticleListItem } from "../../components/feature/blogs/ArticleListItems";
 
 export default createRoute(
   ssgParams(async () => {
