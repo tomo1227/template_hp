@@ -9,11 +9,11 @@ export default createRoute(
   ssgParams(async () => {
     const tags = getTags();
     return tags.map((tag) => ({
-      slug: tag,
+      tag: tag,
     }));
   }),
   async (c) => {
-    const tag = c.req.param('slug');
+    const tag = c.req.param('tag');
     if (!tag || tag.trim() === "") {
       return c.notFound()
     }
