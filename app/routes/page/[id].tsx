@@ -4,20 +4,21 @@ import { getPostsByPage, getTotalPages } from "../../components/feature/blogs/so
 import { ArticleListItem } from "../../components/feature/blogs/ArticleListItems";
 import { Fragment } from "hono/jsx/jsx-runtime";
 
+const pageSize = 10;
+
 export default createRoute(
   ssgParams(async () => {
-    const maxPage = getTotalPages();
-    const ids = Array.from({ length: maxPage }, (_, i) => i + 1);
+    const totalPages = getTotalPages(pageSize);
+    const ids = Array.from({ length: totalPages }, (_, i) => i + 1);
 
     return ids.map((id) => ({
       id: id.toString(),
     }));
   }),
   async (c) => {
-    const pageSize = 10;
     const id = c.req.param('id');
     const currentPage = Number(id)
-    const totalPages = getTotalPages();
+    const totalPages = getTotalPages(pageSize);
 
     if (!id || id.trim() === "") {
       return c.notFound()

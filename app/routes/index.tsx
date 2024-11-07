@@ -3,11 +3,12 @@ import { getTotalPages, getPostsByPage } from "../components/feature/blogs/sorts
 import { Fragment } from "hono/jsx/jsx-runtime";
 import { ArticleListItem } from "../components/feature/blogs/ArticleListItems";
 
+const pageSize = 10;
+
 export default createRoute((c) => {
-  const pageSize = 10;
   const posts = getPostsByPage(1, pageSize);
   const currentPage = 1;
-  const totalPages = getTotalPages();
+  const totalPages = getTotalPages(pageSize);
 
   return c.render(
     <div class={"mt-6 flex flex-col gap-12"}>
