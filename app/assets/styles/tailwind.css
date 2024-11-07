@@ -1,5 +1,6 @@
 @import "./syntax-highlight.css";
 @import "./toc.css";
+@import "./katex.css";
 
 @tailwind base;
 @tailwind components;
@@ -180,4 +181,38 @@ html.dark .markdown .accordion-header:hover {
 
 .sr-only {
   @apply border-t border-gray-300 my-3;
+}
+
+html:not(.dark) .markdown .note {
+  @apply flex items-start p-2 bg-[#bdff8b] rounded-[20px] my-2;
+}
+
+html.dark .markdown .note {
+  @apply flex items-start p-2 bg-[#2B6300] rounded-[20px] my-2;
+}
+.markdown .note svg path {
+  fill: #067c06; /* 通常モードの濃い緑 */
+}
+
+html.dark .markdown .note svg path {
+  fill: #76fe76; /* ダークモードの明るい緑 */
+}
+
+.markdown .note svg {
+  margin-right: 10px;
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.markdown .note-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.markdown .note-content p {
+  margin: 0;
+}
+
+.markdown .note-content strong {
+  padding-left: 5px;
 }

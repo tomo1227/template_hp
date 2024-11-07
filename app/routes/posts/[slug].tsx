@@ -7,12 +7,12 @@ import {
   getPosts,
 } from "../../components/feature/blogs/sorts";
 import { formattedDate } from "../../components/feature/blogs/date";
-import { ArticleListItem } from "../../components/feature/blogs/AritclesListItems";
 import { Profile } from "../../components/parts/Profile";
 import { TitleIcon } from "../../components/parts/TitleIcon";
 import { XIcon } from "../../components/parts/icons";
 import { model as jaModel } from "budoux/dist/data/models/ja";
 import { Parser } from "budoux/dist/parser";
+import { ArticleListItem } from "../../components/feature/blogs/ArticleListItems";
 
 const parser = new Parser(jaModel);
 

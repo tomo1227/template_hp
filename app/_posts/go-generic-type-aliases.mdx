@@ -1,0 +1,121 @@
+---
+title: 【Go言語】 v1.24で追加予定のGeneric Type Aliasesとは？
+createdDate: 2024-11-02T00:13:50.991Z
+updatedDate: 2024-11-02T00:13:50.991Z
+description: Goのv1.24で追加されるGeneric Type Aliasesについて解説します。
+tags: 
+    - Go
+    - バックエンド
+iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Koala/Flat/koala_flat.svg
+---
+
+# はじめに
+
+先日、Go 1.24で追加予定のgeneric alias typesの記事がGoの公式Blogに投稿されました。
+
+https://go.dev/blog/alias-names
+
+# type definition
+
+新しい型を定義する。
+
+```go
+type Foo int
+```
+
+intとは別の全く新しい型として定義しているので、int型をFoo型に代入することはできない。
+
+```go
+func main() {
+    var a Foo
+    var b int = 1
+    a = b
+    fmt.Printf("%d", a)
+}
+```
+
+# 型エイリアス
+
+go1.9で追加された機能。
+
+```go
+type Foo = int
+```
+
+あくまでFooはint型のエイリアスなので、int型と同じ。新しい型を定義しているわけではない。ゆえに、Fooにint型を代入することができる。
+
+```go
+type Foo = int
+
+func main() {
+    var a Foo
+    var b int = 1
+    a = b
+    fmt.Printf("%d", a)
+}
+
+```
+
+例えば以下のようなパッケージがあるとする。
+
+```go
+package oldpkg
+
+type User struct {
+    ID   int
+    Name string
+}
+```
+
+このパッケージを新しいパッケージに移動したい場合
+以下のようにする
+
+```go
+package newpkg
+
+import "path/to/oldpkg"
+
+type User = oldpkg.User
+```
+
+newpkg.User と oldpkg.User は同じ型になる。
+
+# Generic Type Aliases
+
+Go1.18でジェネリクスが導入されたが、エイリアスでジェネリクスを使用することはできなかった。**Generic Type Aliases** によって以下のようなジェネリクスを含むエイリアスがサポートされる。
+
+```go
+type Alias[P1 C1, P2 C2] = someType
+```
+
+次に、Fooがgeneric型の場合を考える。
+
+```go
+package oldpkg
+
+type Foo[T any] struct {
+    ID   T
+    Name string
+}
+```
+
+これを同じように新しい型として移行できる。
+
+```go
+package newpkg
+
+import "path/to/oldpkg"
+
+type User[T any] = oldpkg.User[T]
+```
+
+パッケージ間でジェネリック型を移動するときに完全な型の互換性を維持できます。
+
+## 終わりに
+
+この機能は、Go 1.23 では、`GOEXPERIMENT=aliastypeparams` フラグを指定することで使用することができる。Go 1.24からはデフォルトで使用可能となる予定である。
+
+# 参考文献
+
+1. [What's in an (Alias) Name? - The Go Programming Language](https://go.dev/blog/alias-names)
+1. [Generic Type Aliases in Go 1.24: What They Are and Why We Need Them | by Anton Okolelov | Sep, 2024 | Medium](https://medium.com/@okoanton/generic-type-aliases-in-go-1-24-what-they-are-and-why-we-need-them-07ca05539500)

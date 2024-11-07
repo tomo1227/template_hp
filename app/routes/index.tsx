@@ -1,10 +1,14 @@
 import { createRoute } from "honox/factory";
-import { getPosts } from "../components/feature/blogs/sorts";
-import { ArticleListItem } from "../components/feature/blogs/AritclesListItems";
+import { getTotalPages, getPostsByPage } from "../components/feature/blogs/sorts";
 import { Fragment } from "hono/jsx/jsx-runtime";
+import { ArticleListItem } from "../components/feature/blogs/ArticleListItems";
+
+const pageSize = 10;
 
 export default createRoute((c) => {
-  const posts = getPosts();
+  const posts = getPostsByPage(1, pageSize);
+  const currentPage = 1;
+  const totalPages = getTotalPages(pageSize);
 
   return c.render(
     <div class={"mt-6 flex flex-col gap-12"}>
@@ -21,6 +25,18 @@ export default createRoute((c) => {
           />
         </Fragment>
       ))}
+      <div class="flex justify-center mt-8 gap-4">
+        {currentPage > 1 && (
+          <a href={`/page/${currentPage - 1}`} class="text-blue-500">
+            前のページ
+          </a>
+        )}
+        {currentPage < totalPages && (
+          <a href={`/page/${currentPage + 1}`} class="text-blue-500">
+            次のページ
+          </a>
+        )}
+      </div>
     </div>
   );
 });
