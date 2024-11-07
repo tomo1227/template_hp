@@ -11,6 +11,8 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug";
 import { defineConfig, UserConfig, SSRTarget } from "vite";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 
 const entry = "./app/server.ts";
 
@@ -40,6 +42,7 @@ export default defineConfig(({ mode }): UserConfig => {
         remarkPlugins: [
           remarkFrontmatter,
           remarkMdxFrontmatter,
+          remarkMath,
           [
             remarkRehype,
             {
@@ -54,6 +57,7 @@ export default defineConfig(({ mode }): UserConfig => {
         ],
         rehypePlugins: [
           rehypeSlug,
+          rehypeKatex,
           rehypeStringify,
           [rehypePrettyCode, highlightOptions],
         ],

@@ -47,7 +47,6 @@ export const getPostsByPage = (page: number, pageSize: number = 10) => {
 
 export const getTotalPages = (pageSize: number = 10) => {
   const posts = getPosts();
-  console.log(posts.length, pageSize);
   const maxPage = Math.ceil(posts.length / pageSize);
 
   return maxPage;
