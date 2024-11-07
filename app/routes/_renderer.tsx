@@ -56,6 +56,7 @@ export default jsxRenderer(({ children, frontmatter }) => {
           </main>
         </div>
         <Footer />
+        {/* Cloudflare Web Analytics */}<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "bb067bcfac8245e0b00b1fdc395fe089"}'></script>{/* End Cloudflare Web Analytics */}
       </body>
       {import.meta.env.PROD ? (
         <script type="module" src="/static/assets/tocbot.js" />
