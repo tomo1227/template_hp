@@ -74,5 +74,5 @@ export const getLatestPostsWithoutTargetPost = (postEntryName: string) => {
 
 export const getPostsFilteredByTag = (tag: string) => {
   const allPosts = getPosts();
-  return allPosts.filter((post) => post.frontmatter.tags?.includes(tag));
+  return allPosts.filter((post) => post.frontmatter.tags.includes(tag));
 };
