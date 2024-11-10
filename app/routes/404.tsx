@@ -1,5 +1,6 @@
 import { createRoute } from "honox/factory";
 
+// FIX: ローカルでは期待した動作をしない
 export default createRoute((c) => {
   return c.render(
     <div class="mt-6 flex flex-col justify-center items-center">
