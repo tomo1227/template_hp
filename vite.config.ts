@@ -13,6 +13,7 @@ import rehypeSlug from "rehype-slug";
 import { defineConfig, UserConfig, SSRTarget } from "vite";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import Sitemap from "vite-plugin-sitemap";
 
 const entry = "./app/server.ts";
 
@@ -61,6 +62,9 @@ export default defineConfig(({ mode }): UserConfig => {
           rehypeStringify,
           [rehypePrettyCode, highlightOptions],
         ],
+      }),
+      Sitemap({
+        hostname: "https://tomomon-blog.pages.dev/",
       }),
     ],
     ssr: {
