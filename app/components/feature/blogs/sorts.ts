@@ -74,5 +74,27 @@ export const getLatestPostsWithoutTargetPost = (postEntryName: string) => {
 
 export const getPostsFilteredByTag = (tag: string) => {
   const allPosts = getPosts();
-  return allPosts.filter((post) => post.frontmatter.tags?.includes(tag));
+  return allPosts.filter((post) => post.frontmatter.tags.includes(tag));
+};
+
+export const getTotalPagesFilteredByTag = (
+  pageSize: number = 10,
+  tag: string
+) => {
+  const posts = getPostsFilteredByTag(tag);
+  const maxPage = Math.ceil(posts.length / pageSize);
+
+  return maxPage;
+};
+
+export const getPostsByPageFilteredByTag = (
+  page: number,
+  pageSize: number = 10,
+  tag: string
+) => {
+  const posts = getPostsFilteredByTag(tag);
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = page * pageSize;
+
+  return posts.slice(startIndex, endIndex);
 };

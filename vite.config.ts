@@ -35,7 +35,7 @@ export default defineConfig(({ mode }): UserConfig => {
   const commonConfig = {
     plugins: [
       ssg({ entry }),
-      honox({}),
+      honox(),
       mdx({
         jsxImportSource: "hono/jsx",
         providerImportSource: "./app/components/feature/blogs/mdxComponents",
