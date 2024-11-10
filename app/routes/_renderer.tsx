@@ -15,6 +15,7 @@ export default jsxRenderer(({ children, frontmatter }) => {
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="google-site-verification" content="RZUgeeUBHVqNBaiUqj1H5xvc2feSikztj86Nh2KU-C8" />
         <meta name="description" content={frontmatter?.description ?? "フロントエンドからバックエンドまで日々の開発で得た知見や最新の技術トレンドを発信します。"} />
         {<title>{frontmatter?.title ?? "Tomoki Ota's Blog"}</title>}
         {import.meta.env.PROD ? (
