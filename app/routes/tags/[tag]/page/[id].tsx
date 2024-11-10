@@ -11,10 +11,13 @@ export default createRoute(
   ssgParams(async () => {
     const tags = getTags();
 
-    return tags.map((tag) => ({
-      tag: tag,
-      id: (getTotalPagesFilteredByTag(pageSize, tag)).toString() || "1",
-    }));
+    return tags.flatMap((tag) => {
+      const totalPages = getTotalPagesFilteredByTag(pageSize, tag);
+      return Array.from({ length: totalPages }, (_, pageIndex) => ({
+        tag: tag,
+        id: (pageIndex + 1).toString(),
+      }));
+    });
   }),
   async (c) => {
     const id = c.req.param('id');
