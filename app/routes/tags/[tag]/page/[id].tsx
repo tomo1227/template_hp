@@ -2,7 +2,7 @@ import { createRoute } from "honox/factory";
 import { ssgParams } from "hono/ssg";
 
 import { Fragment } from "hono/jsx/jsx-runtime";
-import { getPostsByPage, getTags, getTotalPages } from "../../../../components/feature/blogs/sorts";
+import { getPostsByPageFilteredByTag, getTags, getTotalPagesFilteredByTag } from "../../../../components/feature/blogs/sorts";
 import { ArticleListItem } from "../../../../components/feature/blogs/ArticleListItems";
 
 const pageSize = 10;
@@ -10,24 +10,23 @@ const pageSize = 10;
 export default createRoute(
   ssgParams(async () => {
     const tags = getTags();
-    const totalPages = getTotalPages(pageSize);
-    const ids = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-    return tags.map((tag, index) => ({
+    return tags.map((tag) => ({
       tag: tag,
-      id: ids[index]?.toString() || "",
+      id: (getTotalPagesFilteredByTag(pageSize, tag)).toString() || "1",
     }));
   }),
   async (c) => {
     const id = c.req.param('id');
+    const tag = c.req.param('tag');
     const currentPage = Number(id)
-    const totalPages = getTotalPages(pageSize);
+    const totalPages = await getTotalPagesFilteredByTag(pageSize, tag);
 
     if (!id || id.trim() === "") {
       return c.notFound()
     }
 
-    const posts = await getPostsByPage(Number(id), pageSize);
+    const posts = await getPostsByPageFilteredByTag(Number(id), pageSize, tag);
 
     if (posts.length === 0) {
       return c.notFound()
@@ -50,12 +49,12 @@ export default createRoute(
         ))}
         <div class="flex justify-center mt-8 gap-4">
           {currentPage > 1 && (
-            <a href={`/page/${currentPage - 1}`} class="text-blue-500">
+            <a href={`/tags/${tag}/page/${currentPage - 1}`} class="text-blue-500">
               前のページ
             </a>
           )}
           {currentPage < totalPages && (
-            <a href={`/page/${currentPage + 1}`} class="text-blue-500">
+            <a href={`/tags/${tag}/page/${currentPage + 1}`} class="text-blue-500">
               次のページ
             </a>
           )}

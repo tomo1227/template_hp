@@ -1,9 +1,11 @@
 import { createRoute } from "honox/factory";
-import { getPostsFilteredByTag, getTags } from "../../components/feature/blogs/sorts";
+import { getPostsByPageFilteredByTag, getPostsFilteredByTag, getTags, getTotalPagesFilteredByTag } from "../../components/feature/blogs/sorts";
 import { Fragment } from "hono/jsx/jsx-runtime";
 import { TitleIcon } from "../../components/parts/TitleIcon";
 import { ssgParams } from "hono/ssg";
 import { ArticleListItem } from "../../components/feature/blogs/ArticleListItems";
+
+const pageSize = 10;
 
 export default createRoute(
   ssgParams(async () => {
@@ -13,12 +15,14 @@ export default createRoute(
     }));
   }),
   async (c) => {
+    const currentPage = 1;
     const tag = c.req.param('tag');
     if (!tag || tag.trim() === "") {
       return c.notFound()
     }
+    const totalPages = await getTotalPagesFilteredByTag(pageSize, tag);
 
-    const posts = await getPostsFilteredByTag(tag);
+    const posts = await getPostsByPageFilteredByTag(1, pageSize, tag);
 
     if (posts.length === 0) {
       return c.notFound()
@@ -48,6 +52,18 @@ export default createRoute(
               />
             </Fragment>
           ))}
+          <div class="flex justify-center mt-8 gap-4">
+            {currentPage > 1 && (
+              <a href={`/tags/${tag}/page/${currentPage - 1}`} class="text-blue-500">
+                前のページ
+              </a>
+            )}
+            {currentPage < totalPages && (
+              <a href={`/tags/${tag}/page/${currentPage + 1}`} class="text-blue-500">
+                次のページ
+              </a>
+            )}
+          </div>
         </div>
       </div>
     );
