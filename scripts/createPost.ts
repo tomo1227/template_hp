@@ -50,7 +50,7 @@ await $`touch ./app/_posts/${filename}.mdx`;
 const frontMatter = `---
 title: ${title}
 createdDate: ${date.toISOString()}
-upadatedDate: ${date.toISOString()}
+updatedDate: ${date.toISOString()}
 description: ${description}
 tag:
 ${tags.map((tag) => `  - ${tag}`).join("\n")}
