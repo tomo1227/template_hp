@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@hono/vite-cloudflare-pages": "^0.4.2",
+    "@types/bun": "^1.1.13",
     "@types/prompts": "^2.4.9",
     "budoux": "^0.6.3",
     "contentlayer": "^0.3.4",
