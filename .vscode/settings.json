@@ -69,9 +69,12 @@
     "devcontainer",
     "devcontainers",
     "dockercompose",
+    "frontmatter",
     "Hono",
     "honox",
-    "tailwindcss"
+    "tailwindcss",
+    "Tomoki",
+    "tomomon"
   ],
   "todo-tree.general.tags": [
     "HACK",

@@ -1,5 +1,5 @@
 import { Style } from "hono/css";
-import { jsxRenderer } from "hono/jsx-renderer";
+import { jsxRenderer, useRequestContext } from "hono/jsx-renderer";
 import { Script } from "honox/server";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
@@ -7,8 +7,15 @@ import ThemeButton from "../islands/ThemeButton";
 import { getTags } from "../components/feature/blogs/sorts";
 
 
-export default jsxRenderer(({ children, frontmatter }) => {
+export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
+  const blogName = "Tomoki Ota's Blog"
   const tags = getTags();
+  const ogpTitle = title ? `${title} - ${blogName}` : blogName;
+  const ogpPath = title ? `static/assets/img/ogp/${entryName}.png` : "static/assets/img/ogp/ogp.png";
+  const twitterCardPath = title ? `static/assets/img/twitterCard/${entryName}.png` : "static/assets/img/twitterCard/twitterCard.png";
+  const currentPath = useRequestContext().req.path;
+  const baseUrl = "https://tomomon-blog.pages.dev";
+  const currentUrl = baseUrl + currentPath;
 
   return (
     <html lang="ja">
@@ -17,6 +24,24 @@ export default jsxRenderer(({ children, frontmatter }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="google-site-verification" content="RZUgeeUBHVqNBaiUqj1H5xvc2feSikztj86Nh2KU-C8" />
         <meta name="description" content={frontmatter?.description ?? "フロントエンドからバックエンドまで日々の開発で得た知見や最新の技術トレンドを発信します。"} />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={ogpTitle} />
+        <meta property="og:description" content={frontmatter?.description ?? "フロントエンドからバックエンドまで日々の開発で得た知見や最新の技術トレンドを発信します。"} />
+        <meta property="og:site_name" content={blogName} />
+        <meta
+          property="og:image"
+          content={`${baseUrl}/${ogpPath}`}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@tomomon1227" />
+        <meta name="twitter:creator" content="@tomomon1227" />
+        <meta name="twitter:title" content={ogpTitle} />
+        <meta name="twitter:description" content={frontmatter?.description ?? "フロントエンドからバックエンドまで日々の開発で得た知見や最新の技術トレンドを発信します。"} />
+        <meta
+          name="twitter:image"
+          content={`${baseUrl}/${twitterCardPath}`}
+        />
         {<title>{frontmatter?.title ?? "Tomoki Ota's Blog"}</title>}
         {import.meta.env.PROD ? (
           <script src="/static/assets/theme.js" />
