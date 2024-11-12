@@ -19,6 +19,7 @@
     "remark-mdx-frontmatter": "^5.0.0",
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.10",
+    "vite-plugin-static-copy": "^2.1.0",
     "wrangler": "^3.84.1"
   },
   "dependencies": {
@@ -43,7 +44,6 @@
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
     "shiki": "^1.22.2",
-    "tocbot": "^4.31.0",
-    "vite-plugin-sitemap": "^0.7.1"
+    "tocbot": "^4.31.0"
   }
 }
