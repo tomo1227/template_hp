@@ -13,8 +13,8 @@ import rehypeSlug from "rehype-slug";
 import { defineConfig, UserConfig, SSRTarget } from "vite";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-// import Sitemap from "vite-plugin-sitemap";
-import { viteStaticCopy } from "vite-plugin-static-copy";
+import Sitemap from "vite-plugin-sitemap";
+// import { viteStaticCopy } from "vite-plugin-static-copy";
 const entry = "./app/server.ts";
 
 export default defineConfig(({ mode }): UserConfig => {
@@ -63,17 +63,17 @@ export default defineConfig(({ mode }): UserConfig => {
           [rehypePrettyCode, highlightOptions],
         ],
       }),
-      // Sitemap({
-      //   hostname: "https://tomomon-blog.pages.dev/",
-      // }),
-      viteStaticCopy({
-        targets: [
-          {
-            src: "app/sitemap.xml",
-            dest: ".",
-          },
-        ],
+      Sitemap({
+        hostname: "https://tomomon-blog.pages.dev/",
       }),
+      // viteStaticCopy({
+      //   targets: [
+      //     {
+      //       src: "app/sitemap.xml",
+      //       dest: ".",
+      //     },
+      //   ],
+      // }),
     ],
     ssr: {
       target: "node" as SSRTarget,
