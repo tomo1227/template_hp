@@ -52,7 +52,7 @@ title: ${title}
 createdDate: ${date.toISOString()}
 updatedDate: ${date.toISOString()}
 description: ${description}
-tag:
+tags:
 ${tags.map((tag) => `  - ${tag}`).join("\n")}
 iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Panda/Flat/panda_flat.svg
 ---
