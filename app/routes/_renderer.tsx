@@ -56,6 +56,8 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
           <link href="/app/assets/styles/tailwind.css" rel="stylesheet" />
         )}
         <link rel="icon" href="/static/assets/favicon.ico" />
+        <link rel="apple-touch-icon" href="/static/assets/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest"></link>
       </head>
       <body class="flex flex-col items-center mb-2 bg-[#fbf9f2] dark:bg-zinc-800 mx-2 min-h-screen">
         <Header>
