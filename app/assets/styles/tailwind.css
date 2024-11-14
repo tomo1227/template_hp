@@ -216,3 +216,24 @@ html.dark .markdown .note svg path {
 .markdown .note-content strong {
   padding-left: 5px;
 }
+
+/* テーブル */
+.markdown table {
+  @apply w-full border-collapse overflow-hidden rounded-sm;
+}
+
+.markdown th {
+  @apply px-4 py-2 bg-indigo-300 text-left text-gray-800 dark:bg-gray-700 dark:text-gray-100;
+}
+
+.markdown td {
+  @apply px-4 py-2 border-t border-indigo-300 text-gray-700 dark:border-gray-600 dark:text-gray-200;
+}
+
+.markdown tbody tr:nth-child(even) {
+  @apply bg-indigo-100 dark:bg-gray-800;
+}
+
+.markdown tbody tr:nth-child(odd) {
+  @apply bg-white dark:bg-gray-900;
+}
