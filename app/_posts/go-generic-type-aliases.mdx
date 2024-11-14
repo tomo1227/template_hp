@@ -9,13 +9,13 @@ tags:
 iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Koala/Flat/koala_flat.svg
 ---
 
-# はじめに
+## はじめに
 
 先日、Go 1.24で追加予定のgeneric alias typesの記事がGoの公式Blogに投稿されました。
 
 https://go.dev/blog/alias-names
 
-# type definition
+## type definition
 
 新しい型を定義する。
 
@@ -34,7 +34,7 @@ func main() {
 }
 ```
 
-# 型エイリアス
+## 型エイリアス
 
 go1.9で追加された機能。
 
@@ -80,7 +80,7 @@ type User = oldpkg.User
 
 newpkg.User と oldpkg.User は同じ型になる。
 
-# Generic Type Aliases
+## Generic Type Aliases
 
 Go1.18でジェネリクスが導入されたが、エイリアスでジェネリクスを使用することはできなかった。**Generic Type Aliases** によって以下のようなジェネリクスを含むエイリアスがサポートされる。
 

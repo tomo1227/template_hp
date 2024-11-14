@@ -9,13 +9,13 @@ tags:
 iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Badger/Flat/badger_flat.svg
 ---
 
-# はじめに
+## はじめに
 
 https://doc.rust-jp.rs/book-ja/ch13-01-closures.html のrustの記事がすごいわかりやすかったので、Goで試してみました。スライドもあるので貼っておきます。
 
 <iframe class="speakerdeck-iframe" frameborder="0" src="https://speakerdeck.com/player/286759d28ce843f9b9606a5e53d7cdb9" title="【Go言語】クロージャ" allowfullscreen="true" style="border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; height: auto; aspect-ratio: 560 / 315;" data-ratio="1.7777777777777777"></iframe>
 
-# クロージャを使わない例
+## クロージャを使わない例
 
 [Go Playground](https://go.dev/play/p/bcgrL1Fg2KY)
 
@@ -55,7 +55,7 @@ generateTrainingMenu関数の期待される振る舞いは、まずユーザが
 * 最初のifで重い処理を2回呼び出す必要性がある
 * `caluculateTrainingReps`が変更されたら、影響箇所が大きい
 
-## 関数でリファクタ
+### 関数でリファクタ
 
 [Go Playground](https://go.dev/play/p/CNA4w5zbobB)
 
@@ -87,7 +87,7 @@ func main() {
 }
 ```
 
-## クロージャを使用する
+### クロージャを使用する
 
 ```go showLineNumbers
 // トレーニングメニューを生成する
@@ -115,7 +115,7 @@ func main() {
 }
 ```
 
-# カリー化
+## カリー化
 
 ```go showLineNumbers
 package main
@@ -159,11 +159,11 @@ func main() {
 
 また、ここで、`add100 := add(100)`のように新しい関数を作ることを **部分適用** という。
 
-# 高階関数
+## 高階関数
 
 https://canopas.com/function-types-and-higher-order-functions-in-go-8ea2e95d1860
 
-## コールバック
+### コールバック
 
 ```go showLineNumbers
 func Process(list []int, callback func(int)) {
@@ -180,7 +180,7 @@ func main() {
 }
 ```
 
-## 無名関数
+### 無名関数
 
 ```go showLineNumbers
 func main() {
@@ -192,7 +192,7 @@ func main() {
 }
 ```
 
-## クロージャ
+### クロージャ
 
 ```go showLineNumbers
 func counter() func() int {
@@ -211,7 +211,7 @@ func main() {
 }
 ```
 
-## 関数の合成
+### 関数の合成
 
 ```go showLineNumbers
 func addOne(num int) int {
@@ -232,7 +232,7 @@ func main() {
 }
 ```
 
-## エラーハンドリング
+### エラーハンドリング
 
 ```go
 func handleErrors(fn func() error) error {
@@ -255,7 +255,7 @@ func main() {
 }
 ```
 
-## テスト
+### テスト
 
 テスト用のモック関数は、高階関数を使用して実現できる。
 
@@ -274,7 +274,7 @@ func main() {
 }
 ```
 
-## パフォーマンスに関する考慮事項
+### パフォーマンスに関する考慮事項
 
 不要な関数呼び出しを最小限に抑えることで、パフォーマンスを最適化できます。オーバーヘッドを削減するためにクロージャを使用する例を次に示します。
 
