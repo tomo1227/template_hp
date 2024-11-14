@@ -57,7 +57,7 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
         )}
         <link rel="icon" href="/static/assets/favicon.ico" />
         <link rel="apple-touch-icon" href="/static/assets/apple-touch-icon.png" />
-        <link rel="manifest" href="/static/assets/site.webmanifest"></link>
+        <link rel="manifest" href="/static/assets/site.webmanifest" />
       </head>
       <body class="flex flex-col items-center mb-2 bg-[#fbf9f2] dark:bg-zinc-800 mx-2 min-h-screen">
         <Header>
