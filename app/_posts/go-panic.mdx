@@ -9,11 +9,11 @@ tags:
 iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Beaver/Flat/beaver_flat.svg
 ---
 
-# はじめに
+## はじめに
 
 Goにはtry/catchがないが、panicやrecoverをむやみにつかってはいけない。一般的には、error型で返すのが好ましい。
 
-# panicとは
+## panicとは
 
 [Go Playground](https://go.dev/play/p/AQKptHYU6SO)
 
@@ -50,12 +50,12 @@ func f() {
 `recover`で捕捉されると、goroutineは終了しない。
 `recover`を呼び出すのは、deferに与えられた関数内だけで有効。recover関数はnilを返し、何も効果はない
 
-# パニックを発生させるべきとき
+## パニックを発生させるべきとき
 
 * 純粋なプログラマーエラー
 * アプリケーションが必須依存関係を必要とするにも関わらず、初期化に失敗するとき
 
-## 純粋なプログラマーエラー
+### 純粋なプログラマーエラー
 
 net/httpパッケージのWriteHeaderでは、ステータスコードが有効化どうかを検査するために`checkWriteHeaderCode()`が呼ばれる。
 
@@ -71,7 +71,7 @@ func checkWriteHeaderCode(code int) {
 
 その他にも`database/sql`パッケージのRegister()が０位に挙げられる。
 
-## アプリケーションが必須の依存関係の作成に失敗するとき
+### アプリケーションが必須の依存関係の作成に失敗するとき
 
 新たな顧客アカウントを作成するためのサービスを公開するとき、提供された電子メールアドレスの検証を正規表現を用いて行う。
 
@@ -80,10 +80,10 @@ regexpパッケージには、文字列から正規表現を作成する関数�
 * Compile : *regexp.Regexpとエラーを返す
 * MustCompile : エラーが発生したらパニックを発生させる
 
-# まとめ
+## まとめ
 
 ほとんどの場合は、最後の戻り値として、error型を返すべきである。
 
-# 参考文献
+## 参考文献
 
 1. [100 Go Mistakes and How to Avoid Them](https://100go.co/ja/)
