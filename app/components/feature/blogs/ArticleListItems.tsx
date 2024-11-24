@@ -3,7 +3,6 @@ import { formattedDate } from "./date";
 type Props = {
   title: string;
   createdDate: string;
-  updatedDate: string;
   description: string;
   iconUrl: string;
   tags: string[];

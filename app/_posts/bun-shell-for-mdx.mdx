@@ -1,7 +1,6 @@
 ---
 title: 【Bun】shellでmdxを自動生成する
 createdDate: 2024-11-11T11:31:41.775Z
-updatedDate: 2024-11-11T11:31:41.775Z
 description: bunのshellでmdxを自動生成する方法を解説します。
 tags:
   - Bun
@@ -107,7 +106,6 @@ await $`touch ./app/_posts/${filename}.mdx`;
 const frontMatter = `---
 title: ${title}
 createdDate: ${date.toISOString()}
-updatedDate: ${date.toISOString()}
 description: ${description}
 tag:
 ${tags.map((tag) =>`  - ${tag}`).join("\n")}
