@@ -36,7 +36,6 @@ export default createRoute(
 
     const pageTitle = post?.frontmatter.title ?? "";
     const createdDate = formattedDate(post?.frontmatter.createdDate ?? "");
-    const updatedDate = formattedDate(post?.frontmatter.updatedDate ?? "");
     const tags = post?.frontmatter.tags ?? [];
 
 
@@ -67,14 +66,10 @@ export default createRoute(
               </li>
             ))}
           </ul>
-          <div class="text-gray-500 dark:text-gray-400 text-sm max-md:text-xs">
+          <div class="text-gray-500 dark:text-gray-400 text-sm max-md:text-xs pt-2">
             作成日&nbsp;
             <time class="text-gray-600 dark:text-gray-300 text-base mr-1">
               {createdDate}
-            </time>
-            更新日&nbsp;
-            <time class="text-gray-600 dark:text-gray-300 text-base">
-              {updatedDate}
             </time>
           </div>
         </div>
@@ -102,7 +97,6 @@ export default createRoute(
                   <ArticleListItem
                     entryName={post.entryName}
                     createdDate={post.frontmatter.createdDate}
-                    updatedDate={post.frontmatter.updatedDate}
                     title={post.frontmatter.title}
                     description={post.frontmatter.description}
                     iconUrl={post.frontmatter.iconUrl}

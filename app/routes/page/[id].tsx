@@ -37,7 +37,6 @@ export default createRoute(
             <ArticleListItem
               title={post.frontmatter.title}
               createdDate={post.frontmatter.createdDate}
-              updatedDate={post.frontmatter.updatedDate}
               description={post.frontmatter.description}
               iconUrl={post.frontmatter.iconUrl}
               tags={post.frontmatter.tags}
