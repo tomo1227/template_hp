@@ -64,7 +64,7 @@ export default defineConfig(({ mode }): UserConfig => {
         ],
       }),
       // Sitemap({
-      //   hostname: "https://tomomon-blog.pages.dev/",
+      //   hostname: "https://pathy.jp/",
       // }),
       viteStaticCopy({
         targets: [
@@ -89,7 +89,7 @@ export default defineConfig(({ mode }): UserConfig => {
       ],
     },
     server: {
-      port: 3001,
+      port: 3003,
       host: "0.0.0.0",
       watch: {
         usePolling: true, // コンテナ環境での監視方法を変更

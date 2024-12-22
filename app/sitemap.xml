@@ -1,147 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-      <loc>https://tomomon-blog.pages.dev/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>daily</changefreq>
       <priority>1.0</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/aws-sso-login/</loc>
-      <lastmod>2024-11-24</lastmod>
+      <loc>https://pathy.jp/posts/aws-sso-login/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/vite-copy-file/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/vite-copy-file/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/bun-shell-for-mdx/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/bun-shell-for-mdx/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/measure-architecture-characteristics/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/measure-architecture-characteristics/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
 
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/architecture-characteristics/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/architecture-characteristics/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/rust-errorhandlling/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/rust-errorhandlling/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/go-generic-type-aliases/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/go-generic-type-aliases/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/go-panic/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/go-panic/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/go-panic/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/go-panic/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/linguistic-approach-to-writing-effective-comments/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/linguistic-approach-to-writing-effective-comments/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/closure/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/closure/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/hello/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/hello/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/posts/hello/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/posts/hello/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/tags/Bun/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/tags/Bun/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/tags/Vite/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/tags/Vite/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/tags/Honox/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/tags/Honox/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/tags/フロント/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/tags/フロント/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/tags/アーキテクチャ/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/tags/アーキテクチャ/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/tags/Rust/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/tags/Rust/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/tags/バックエンド/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/tags/バックエンド/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/tags/Go/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/tags/Go/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/tags/Coding/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/tags/Coding/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>
     <url>
-      <loc>https://tomomon-blog.pages.dev/tags/News/</loc>
-      <lastmod>2024-11-18</lastmod>
+      <loc>https://pathy.jp/tags/News/</loc>
+      <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.5</priority>
     </url>

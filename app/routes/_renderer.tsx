@@ -14,7 +14,7 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
   const ogpPath = title ? `static/assets/img/ogp/${entryName}.png` : "static/assets/img/ogp/ogp.png";
   const twitterCardPath = title ? `static/assets/img/twitterCard/${entryName}.png` : "static/assets/img/twitterCard/twitterCard.png";
   const currentPath = useRequestContext().req.path;
-  const baseUrl = "https://tomomon-blog.pages.dev";
+  const baseUrl = "https://pathy.jp";
   const currentUrl = baseUrl + currentPath;
 
   return (
