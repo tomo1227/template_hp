@@ -6,7 +6,7 @@
       <changefreq>daily</changefreq>
       <priority>1.0</priority>
     </url>
-        <url>
+    <url>
       <loc>https://pathy.jp/posts/shadcn/</loc>
       <lastmod>2024-12-22</lastmod>
       <changefreq>weekly</changefreq>
