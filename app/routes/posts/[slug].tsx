@@ -78,7 +78,7 @@ export default createRoute(
         <div class={"mt-10 flex items-center justify-center gap-2"}>
           <span>この記事をシェアする</span>
           <a
-            href={`https://twitter.com/intent/tweet?url=https://tomomon-blog.pages.dev/posts/${post?.entryName
+            href={`https://twitter.com/intent/tweet?url=https://pathy.jp/posts/${post?.entryName
               }&text=${post?.frontmatter.title}${" - "}Tomoki Ota's Blog`}
             referrerpolicy="no-referrer"
             class={"flex hover:opacity-70 transition-opacity"}

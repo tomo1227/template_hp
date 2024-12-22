@@ -1,5 +1,5 @@
 export const BLOG_TITLE = "Tomoki Ota's Blog";
-export const DEV_BLOG_URL = "https://tomomon-blog.pages.dev";
+export const DEV_BLOG_URL = "https://pathy.jp";
 
 const SECOND_MS = 1000;
 const MINUTE_MS = SECOND_MS * 60;
