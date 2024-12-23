@@ -60,14 +60,23 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
         <link rel="manifest" href="/static/assets/site.webmanifest" />
       </head>
       {/* Google tag (gtag.js) */}
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-F6RL6PBSF9"></script>
-      <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-F6RL6PBSF9"
+      ></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'G-F6RL6PBSF9');
+          `,
+        }}
+      />
 
-        gtag('config', 'G-F6RL6PBSF9');
-      </script>
       <body class="flex flex-col items-center mb-2 bg-[#fbf9f2] dark:bg-zinc-800 mx-2 min-h-screen">
         <Header>
           <ThemeButton />
@@ -101,5 +110,4 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
       )}
     </html>
   );
-  // }
 });
