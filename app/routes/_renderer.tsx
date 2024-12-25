@@ -42,7 +42,7 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
           name="twitter:image"
           content={`${baseUrl}/${twitterCardPath}`}
         />
-        <link rel="canonical" href="currentUrl" />
+        <link rel="canonical" href={currentUrl} />
         {<title>{frontmatter?.title ?? "Tomoki Ota's Blog"}</title>}
         {import.meta.env.PROD ? (
           <script src="/static/assets/theme.js" />
