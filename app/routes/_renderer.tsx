@@ -15,7 +15,7 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
   const twitterCardPath = title ? `static/assets/img/twitterCard/${entryName}.png` : "static/assets/img/twitterCard/twitterCard.png";
   const currentPath = useRequestContext().req.path;
   const baseUrl = "https://pathy.jp";
-  const currentUrl = baseUrl + currentPath;
+  const currentUrl = baseUrl + currentPath + "/";
 
   return (
     <html lang="ja">
@@ -42,6 +42,7 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
           name="twitter:image"
           content={`${baseUrl}/${twitterCardPath}`}
         />
+        <link rel="canonical" href="currentUrl" />
         {<title>{frontmatter?.title ?? "Tomoki Ota's Blog"}</title>}
         {import.meta.env.PROD ? (
           <script src="/static/assets/theme.js" />
