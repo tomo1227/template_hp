@@ -15,7 +15,7 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
   const twitterCardPath = title ? `static/assets/img/twitterCard/${entryName}.png` : "static/assets/img/twitterCard/twitterCard.png";
   const currentPath = useRequestContext().req.path;
   const baseUrl = "https://pathy.jp";
-  const currentUrl = baseUrl + currentPath;
+  const currentUrl = baseUrl + currentPath + "/";
 
   return (
     <html lang="ja">
@@ -42,6 +42,7 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
           name="twitter:image"
           content={`${baseUrl}/${twitterCardPath}`}
         />
+        <link rel="canonical" href={currentUrl} />
         {<title>{frontmatter?.title ?? "Tomoki Ota's Blog"}</title>}
         {import.meta.env.PROD ? (
           <script src="/static/assets/theme.js" />
@@ -59,6 +60,24 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
         <link rel="apple-touch-icon" href="/static/assets/apple-touch-icon.png" />
         <link rel="manifest" href="/static/assets/site.webmanifest" />
       </head>
+      {/* Google tag (gtag.js) */}
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-F6RL6PBSF9"
+      ></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'G-F6RL6PBSF9');
+          `,
+        }}
+      />
+
       <body class="flex flex-col items-center mb-2 bg-[#fbf9f2] dark:bg-zinc-800 mx-2 min-h-screen">
         <Header>
           <ThemeButton />
@@ -84,7 +103,6 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
           </main>
         </div>
         <Footer />
-        {/* Cloudflare Web Analytics */}<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "bb067bcfac8245e0b00b1fdc395fe089"}'></script>{/* End Cloudflare Web Analytics */}
       </body>
       {import.meta.env.PROD ? (
         <script type="module" src="/static/assets/tocbot.js" />
@@ -93,5 +111,4 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
       )}
     </html>
   );
-  // }
 });
