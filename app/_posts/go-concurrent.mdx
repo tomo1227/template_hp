@@ -135,7 +135,7 @@ func main() {
 ゴルーチンは、情報のやり取りにチャネル(channel)を使う。チャネルもスライスやマップと同様に組み込みの型。参照型。
 関数にチャネルを渡すとき、実際はチャネルへのポインタを渡す。チャネルのゼロ値はnil。
 
-```go:チャネルの生成
+```go title="チャネルの生成"
 ch := make(chan int)
 ```
 
@@ -169,7 +169,7 @@ ch := make(chan int, 10)
 
 `ch <-chan int`とすると受信専用、`ch chan<- int`のようにすると送信専用のチャネルであることを示し、関数に渡すことができる。
 
-```go:送信専用のchannel
+```go title="送信専用のchannel"
 // 送信専用の容量10のchannel作成
 c := make(chan<- int, 10)
 
@@ -180,7 +180,7 @@ c <- 10
 fmt.Println(<-c)
 ```
 
-```go:受信専用のchannel
+```go title="受信専用のchannel"
 // 受信専用の容量10のchannel作成
 c := make(<-chan int, 10)
 
@@ -333,7 +333,7 @@ for文の最後まで到達して、ゴルーチンが全てt起動していれ�
 ループ内でシャドーイングすることで、解決する。
 [ex1005b.go](https://go.dev/play/p/ZS8bFaHJ5ki)
 
-```diff go:
+```diff
  a := []int{2, 4, 6, 8, 10, 12, 14, 16, 18, 20}
  ch := make(chan int, len(a))
  for _, v := range a { //liststart
@@ -352,7 +352,7 @@ for文以外にも、外側の変数にgorotineが依存している場合は、
 
 他の解決策として、goroutineの引数に値を渡す方法もある。[ex1005c.go](https://go.dev/play/p/qAShOz0M9x4)
 
-```go:
+```go
 a := []int{2, 4, 6, 8, 10, 12, 14, 16, 18, 20}
 ch := make(chan int, len(a))
 for _, v := range a { //liststart
@@ -523,7 +523,7 @@ sync.WaitGroupは明示的な初期化の必要はない。宣言するだけで
 * Done : カウンタをデクリメントする。処理が終了した時に呼ばれる
 * Wait : カウンタが0になるまで、それを含むgoroutineを停止する
 
-```go:WaitGroup使い方
+```go title="WaitGroup使い方"
 var wg sync.WaitGroup
 
 wg.Add(1)
@@ -543,7 +543,7 @@ fmt.Println("タスクがすべて完了")
 
 [playground](https://go.dev/play/p/SCP9XUuuWNj)
 
-```go:waitgroup使用しない例
+```go title="waitgroup使用しない例"
 func main() {
  fmt.Println("開始")
 
@@ -597,8 +597,9 @@ func main() {
 
  sync.WaitGroupは便利だが、goroutineの協調のための第一の選択肢とするべきではない。処理を行うワーカーとなるgoroutineがすべて終了した後で、クリーンアップするものがあるときのみ用いる。
 
-> [!NOTE]
-> [errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup)はsync.WaitGroupで作られている。これは一群のgoroutineを生成し、そのうち一つのgoroutineがエラーを返すと処理を停止する。
+<Note title="errgroup">
+ [errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup)はsync.WaitGroupで作られている。これは一群のgoroutineを生成し、そのうち一つのgoroutineがエラーを返すと処理を停止する。
+</Note>
 
 ### 10.5.11 コードを一度だけ実行
 
@@ -609,7 +610,7 @@ initを用いると、イミュータブルなパッケージレベルの状態�
 
 [playground](https://go.dev/play/p/0OgjRnXpZAi)
 
-```go:sync.onceの使用例
+```go title="sync.onceの使用例"
 func main() {
  var once sync.Once
  f := func() {
@@ -625,7 +626,7 @@ func main() {
 
 [playground](https://go.dev/play/p/b6QDJnP0kpE)
 
-```go:並行処理の例
+```go title="並行処理の例"
 func main() {
  var once sync.Once
  f := func() {
@@ -673,7 +674,7 @@ mutexの問題として、以下2つが挙げられる。
 
 `sync.WaitGroup`や`sync.Once`同様、`mutexはコピーしてはダメ。関数に渡されたり、構造体のフィールドとして、アクセスされたりする際には、ポインタを介さなければならない。mutexがコピーされると、ロックは共有されない。
 
-> [!NOTE]
+<Note title="sync.Map">
 > sync.Mapとい並行実行を行なっても安全なうmapがある。以下のような特殊な場合に用いる。
 
 * 共有マップでkey/valueのペアが一度だけ追加され、何度も読まれる
@@ -682,6 +683,7 @@ mutexの問題として、以下2つが挙げられる。
 [排他的ロックをしていない例](https://go.dev/play/p/CMr8owjlE4d)
 
 [排他的ロックをしている例](https://go.dev/play/p/fRnukRq0CTV)
+</Note>
 
 ## 10.7 sync/atomic
 
