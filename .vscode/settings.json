@@ -65,16 +65,24 @@
   },
   "yaml.format.enable": true,
   "cSpell.words": [
+    "budoux",
+    "bunx",
     "Codecov",
+    "contentlayer",
     "devcontainer",
     "devcontainers",
     "dockercompose",
     "frontmatter",
     "Hono",
     "honox",
+    "Qiita",
+    "shadcn",
+    "shellsession",
+    "tada",
     "tailwindcss",
     "Tomoki",
-    "tomomon"
+    "tomomon",
+    "vite"
   ],
   "todo-tree.general.tags": [
     "HACK",
