@@ -32,7 +32,7 @@ export default defineConfig(({ mode }): UserConfig => {
       light: "everforest-light",
     },
     defaultLang: "plaintext",
-    transformers: [transformerNotationDiff(), transformerNotationHighlight()],
+    transformers: [transformerNotationDiff()],
   };
 
   const commonConfig = {
