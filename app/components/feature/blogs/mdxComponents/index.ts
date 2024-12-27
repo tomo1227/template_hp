@@ -1,12 +1,12 @@
 import type { MDXComponents } from "mdx/types";
 import { AnchorLink } from "./anchorLink";
 import { ArticleImage } from "./articleImage";
-import { ExternalOgp } from "./externalOgp";
+import { BlogCard } from "./blogCard";
 
 export function useMDXComponents(): MDXComponents {
   const components = {
     img: ArticleImage,
-    ExternalOgp: ExternalOgp,
+    BlogCard: BlogCard,
     a: AnchorLink,
   };
   return components;
