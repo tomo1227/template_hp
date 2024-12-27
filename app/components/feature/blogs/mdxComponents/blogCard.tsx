@@ -3,17 +3,18 @@ import { fetchOgp } from "../fetchOgp";
 type Props = {
   url: string;
 };
-export const ExternalOgp = async (props: Props) => {
+export const BlogCard = async (props: Props) => {
   const ogp = await fetchOgp(props.url);
 
   if (!ogp) return <></>;
   const host = new URL(props.url).host;
+  console.log(host);
   return (
     <a
       href={props.url}
       target="_blank"
       class={"ogp-link transition-opacity hover:opacity-65"}
-      rel="noreferrer"
+      rel="noopener noreferrer"
     >
       <div
         class={
