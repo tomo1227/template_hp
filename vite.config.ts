@@ -13,6 +13,7 @@ import rehypeSlug from "rehype-slug";
 import { defineConfig, UserConfig, SSRTarget } from "vite";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import { transformerNotationDiff } from "@shikijs/transformers";
 // import Sitemap from "vite-plugin-sitemap";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 const entry = "./app/server.ts";
@@ -31,6 +32,7 @@ export default defineConfig(({ mode }): UserConfig => {
       light: "everforest-light",
     },
     defaultLang: "plaintext",
+    transformers: [transformerNotationDiff()],
   };
 
   const commonConfig = {
