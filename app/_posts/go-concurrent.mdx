@@ -52,7 +52,7 @@ iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/
 ### スレッドセーフとコンフリクト
 
 1つのリソースに複数のアクセスがあるとコンフリクト(競合状態)となる。
-スレッドセーフという言葉はプログラムの一部に存在する共通処理部分に対して使われる。 
+スレッドセーフという言葉はプログラムの一部に存在する共通処理部分に対して使われる。
 リエントラント性という言葉は抽象的な話の中やタスクやスレッド自体が 複数の処理依頼を同時に受け付けることが出来るような場合に使用する。
 
 [keyword9.pdf](https://www.embedded-ark.com/kpress/keyword9.pdf)
@@ -66,6 +66,7 @@ Sequential Processes](https://dl.acm.org/doi/pdf/10.1145/359576.359585)で述べ
 
 goroutineはユーザスレッドとなっている。([プロセス-vs-スレッド](#プロセス-vs-スレッド))
 並列処理にするには，runtimeパッケージの`GOMAXPROCS()`を使う，もしくは環境変数 `GOMAXPROCS` を設定する．
+
 ## 10.1　並行性をいつ利用するべきか
 
 やってはいけないこと
@@ -333,19 +334,19 @@ for文の最後まで到達して、ゴルーチンが全てt起動していれ�
 ループ内でシャドーイングすることで、解決する。
 [ex1005b.go](https://go.dev/play/p/ZS8bFaHJ5ki)
 
-```diff
- a := []int{2, 4, 6, 8, 10, 12, 14, 16, 18, 20}
- ch := make(chan int, len(a))
- for _, v := range a { //liststart
-+  v := v  // 外側のvをシャドーする
-  go func() {
-   ch <- v * 2
-  }()
- } //listend
- for i := 0; i < len(a); i++ {
-  fmt.Print(<-ch, " ")
- }
- fmt.Println()
+```go
+a := []int{2, 4, 6, 8, 10, 12, 14, 16, 18, 20}
+ch := make(chan int, len(a))
+for _, v := range a { //liststart
+    v := v  // 外側のvをシャドーする // [!code ++]
+    go func() {
+        ch <- v * 2
+    }()
+} //listend
+for i := 0; i < len(a); i++ {
+    fmt.Print(<-ch, " ")
+}
+fmt.Println()
 ```
 
 for文以外にも、外側の変数にgorotineが依存している場合は、同じ問題が生じる。
@@ -421,6 +422,7 @@ func convertData(s string, converters []func(string) message) message {
 チャネルだけでなく、処理をキャンセルするためのキャンセレーション関数も戻すことで、goroutineの実行をキャンセルしたくなったときにキャンセルできるようにできる。
 
 キャンセルの目的
+
 * 後続の処理を続けるため
   *例えば外部APIを実行する際にレスポンスが異常に遅い場合はネットワーク障害などの可能性もあるためタイムアウトする必要があります。
   * リソース解放のため
@@ -430,34 +432,34 @@ func convertData(s string, converters []func(string) message) message {
 
 ```go
 func main() {
-	ctx := context.Background()
+    ctx := context.Background()
 
-	// 子のcontextを作成。第二返り値を使って子のコンテキストをキャンセルできる。
-	ctxChild, cancel := context.WithCancel(ctx)
+    // 子のcontextを作成。第二返り値を使って子のコンテキストをキャンセルできる。
+    ctxChild, cancel := context.WithCancel(ctx)
 
-	// キャンセルされるまで無限ループするgoroutineを生成
-	go func() {
-		for {
-			select {
-			// キャンセルされると入る処理
-			case <-ctxChild.Done():
-				fmt.Println("context done")
-				return
-			// キャンセルされない間の処理
-			default:
-				fmt.Println("hello")
-			}
-		}
-	}()
+    // キャンセルされるまで無限ループするgoroutineを生成
+    go func() {
+        for {
+            select {
+            // キャンセルされると入る処理
+            case <-ctxChild.Done():
+                fmt.Println("context done")
+                return
+            // キャンセルされない間の処理
+            default:
+                fmt.Println("hello")
+            }
+        }
+    }()
 
-	// goroutineの処理が始まる前にキャンセルされるのを防ぐためスリープ
-	time.Sleep(1 * time.Second)
+    // goroutineの処理が始まる前にキャンセルされるのを防ぐためスリープ
+    time.Sleep(1 * time.Second)
 
-	// キャンセル実行
-	cancel()
+    // キャンセル実行
+    cancel()
 
-	time.Sleep(1 * time.Second)
-	fmt.Println("main end")
+    time.Sleep(1 * time.Second)
+    fmt.Println("main end")
 }
 ```
 
@@ -675,7 +677,7 @@ mutexの問題として、以下2つが挙げられる。
 `sync.WaitGroup`や`sync.Once`同様、`mutexはコピーしてはダメ。関数に渡されたり、構造体のフィールドとして、アクセスされたりする際には、ポインタを介さなければならない。mutexがコピーされると、ロックは共有されない。
 
 <Note title="sync.Map">
-> sync.Mapとい並行実行を行なっても安全なうmapがある。以下のような特殊な場合に用いる。
+sync.Mapとい並行実行を行なっても安全なうmapがある。以下のような特殊な場合に用いる。
 
 * 共有マップでkey/valueのペアが一度だけ追加され、何度も読まれる
 * 複数のgoroutineがmapを共有する際に、互いに他方が担当するキーと値にはアクセスしない。
@@ -690,7 +692,6 @@ mutexの問題として、以下2つが挙げられる。
 mutex以外にも複数スレッドが関係する場面で、データの一貫性を保つ方法が用意されている。`sync/atomic`には、モダンなCPUに組み込まれたアトミックな変数に対する操作のための機能が組み込まれている。一つのレジスタに十分入る値に他する加算、スワップ、ロード、ストア、比較とスワップ(CAS)のための機能。
 
 パフォーマンスを最高レベルにまで高められる並行実行のエキスパートを自認するなら、Goの`sync/atomic`を使って並行性に纏わる処理を管理すれば十分である。
-
 
 [playground](https://go.dev/play/p/n9iwkod4FFh)
 
