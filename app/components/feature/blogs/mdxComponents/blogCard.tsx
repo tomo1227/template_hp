@@ -8,7 +8,6 @@ export const BlogCard = async (props: Props) => {
 
   if (!ogp) return <></>;
   const host = new URL(props.url).host;
-  console.log(host);
   return (
     <a
       href={props.url}
