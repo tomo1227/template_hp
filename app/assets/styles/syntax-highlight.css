@@ -82,3 +82,35 @@ p {
 article p {
   @apply leading-9;
 }
+
+.diff.remove::before {
+  content: "- ";
+  color: red;
+  font-weight: bold;
+}
+
+.diff.remove {
+  background-color: rgba(255, 0, 0, 0.2) !important;
+  border-radius: 2px;
+  padding: 1px;
+}
+
+.diff.remove span {
+  background-color: transparent !important;
+}
+
+.diff.add::before {
+  content: "+ ";
+  color: rgb(0, 255, 0);
+  font-weight: bold;
+}
+
+.diff.add {
+  background-color: rgba(0, 255, 0, 0.2)!important;
+  border-radius: 2px;
+  padding: 1px; 
+}
+
+.diff.add span {
+  background-color: transparent !important;
+}
