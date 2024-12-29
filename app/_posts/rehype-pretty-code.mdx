@@ -1,0 +1,278 @@
+---
+title: Rehype Pretty Codeの使用例
+createdDate: 2024-12-29T03:05:08.522Z
+description: Rehype Pretty Codeを使ってみた例を挙げていきます。
+tags:
+  - Vite
+  - Shiki
+  - Markdwon
+iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bison/Flat/bison_flat.svg
+---
+
+## はじめに
+
+[Rehype Pretty Code](https://rehype-pretty.pages.dev)はShikiベースのシンタックスハイライト機能を提供するrehypeプラグイン。
+
+<BlogCard url="https://github.com/rehype-pretty/rehype-pretty-code" />
+
+<BlogCard url="https://shiki.style/" />
+
+この記事では、実際にRehype Pretty Codを使用した例を挙げていきます。
+
+## シンタックスハイライト
+
+### タイトル
+
+`title=""`でタイトルがつけられる。
+
+````md
+```go title="hello"
+func main() {
+  fmt.Println("hello")
+}
+```
+````
+
+```go title="hello"
+func main() {
+  fmt.Println("hello")
+}
+```
+
+### キャプション
+
+`caption=""`でタイトルがつけられる。
+
+````md
+```go caption="hello"
+func main() {
+  fmt.Println("hello")
+}
+```
+````
+
+```go caption="hello"
+func main() {
+  fmt.Println("hello")
+}
+```
+
+### 行番号の追加
+
+`showLineNumbers`をつけると行番号をつけられる。
+
+````md
+```go showLineNumbers
+func main() {
+  fmt.Println("hello")
+}
+```
+````
+
+```go showLineNumbers
+func main() {
+  fmt.Println("hello")
+}
+```
+
+`showLineNumber{4}`のようにしたら最初の数字を変更できる。
+
+````md
+```go showLineNumbers{5}
+func main() {
+  fmt.Println("hello")
+}
+```
+````
+
+```go showLineNumbers{5}
+func main() {
+  fmt.Println("hello")
+}
+```
+
+### 行ハイライト
+
+`go {2}`のように行番号で指定する。
+
+````md
+```go {2}
+func main() {
+  fmt.Println("hello")
+}
+```
+````
+
+```go {2}
+func main() {
+  fmt.Println("hello")
+}
+```
+
+### 文字のハイライト
+
+`go /Println/｀のように単語を指定すると、特定の単語にハイライトをつけられる。
+`"Println"`のように`"`でも可能。複数追加する場合は、`js /carrot/ /apple/`のようにする。
+
+````md
+```go /Println/
+func main() {
+  fmt.Println("hello")
+}
+```
+````
+
+```go /Println/
+func main() {
+  fmt.Println("hello")
+}
+```
+
+### マーカー
+
+グループを設定して、マーカをつけることができる。
+
+````md
+```js /age/#r /name/#r /setAge/#y /setName/#y /50/#p /"Taylor"/#p
+const [age, setAge] = useState(50);
+const [name, setName] = useState("Taylor");
+```
+````
+
+```js /age/#r /name/#r /setAge/#y /setName/#y /50/#p /"Taylor"/#p
+const [age, setAge] = useState(50);
+const [name, setName] = useState("Taylor");
+```
+
+以下のcssを修正すると、マーカーの色やグループIDを変えたり追加したりすることができる。
+
+```css
+[data-chars-id="r"] {
+  @apply !text-pink-300 bg-rose-800/50 border-b-pink-600 font-bold;
+}
+
+[data-chars-id="y"] {
+  @apply !text-yellow-300 bg-yellow-800/50 border-b-yellow-600 font-bold;
+}
+
+[data-chars-id="p"] {
+  @apply !text-purple-200 bg-purple-800/50 border-b-purple-600 font-bold;
+}
+```
+
+### diff
+
+`diff` + 言語のシンタックスハイライトを付与する。
+Shikiのtransformerで実現している。
+
+**\/\/ [!code --]**をつけると、`-`、**\/\/ [!code ++]** をつけると`+`になる。
+
+表示されないのでmarkdownの方では`/`の後のスペースを抜いている。
+
+````md
+```go
+func main() {
+  fmt.Println("hello")  //[!code --]
+  fmt.Println("see you") //[!code ++]
+}
+```
+````
+
+```go
+func main() {
+  fmt.Println("hello") // [!code --]
+  fmt.Println("see you") // [!code ++]
+}
+```
+
+### ANSIコード
+
+ANSIコードのハイライトもできる。おそらく使用することはなさそう。
+
+````md
+```ansi
+[0;36m  vite v5.0.0[0;32m dev server running at:[0m
+
+  > Local: [0;36mhttp://localhost:[0;36;1m3000[0;36m/[0m
+  > Network: [0;2muse `--host` to expose[0m
+
+  [0;36mready in 125ms.[0m
+
+[0;2m8:38:02 PM[0m [0;36;1m[vite][0m [0;32mhmr update [0;2m/src/App.jsx
+```
+
+Inline ANSI: `> Local: [0;36mhttp://localhost:[0;36;1m3000[0;36m/[0m{:ansi}`
+````
+
+```ansi
+[0;36m  vite v5.0.0[0;32m dev server running at:[0m
+
+  > Local: [0;36mhttp://localhost:[0;36;1m3000[0;36m/[0m
+  > Network: [0;2muse `--host` to expose[0m
+
+  [0;36mready in 125ms.[0m
+
+[0;2m8:38:02 PM[0m [0;36;1m[vite][0m [0;32mhmr update [0;2m/src/App.jsx
+```
+
+Inline ANSI: `> Local: [0;36mhttp://localhost:[0;36;1m3000[0;36m/[0m{:ansi}`
+
+## インラインコードのハイライト
+
+### インラインコード内のプログラミング言語のシンタックスハイライト
+
+```md
+`[1, 2, 3].join('-'){:js}`
+```
+
+`[1, 2, 3].join('-'){:js}`
+
+### Context Aware Inline Code
+
+これは使えるが、自分の環境ではshikiのCSS変数と衝突して、文字の色が変化しない。
+
+```js
+function getStringLength(str) {
+  return str.length;
+}
+```
+
+```md
+`getStringLength{:.entity.name.function}`
+`function{:.keyword}`
+`str{:.variable.parameter}`
+`str{:.variable.other.object}`
+```
+
+`getStringLength{:.entity.name.function}`
+`function{:.keyword}`
+`str{:.variable.parameter}`
+`str{:.variable.other.object}`
+
+## カスタムコンポーネント
+
+以下の例は既存のアイテムではなく、独自に作成したコンポーネント、CSSを適応して実装しています。
+
+### BlogCard
+
+ブログカードを表示します。
+
+```tsx
+<BlogCard url="https://tomokiota.com/" />
+```
+
+<BlogCard url="https://tomokiota.com/" />
+
+### Accordion
+
+アコーディオンです。折りたたみ表示を実現します。中身は`details`タグと`summary`タグで実装してます。
+
+```tsx
+<Accordion title="アコーディオンの例だよ！">
+  こんにちは！
+</Accordion>
+```
+
+<Accordion title="アコーディオンの例だよ！">
+  こんにちは！
+</Accordion>

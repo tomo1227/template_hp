@@ -39,6 +39,9 @@
     "**/*": "../../public/static/assets/img/posts/${documentBaseName}/img.${fileExtName}"
   },
   "markdown-preview-enhanced.codeBlockTheme": "solarized-light.css",
+  "markdown-preview-enhanced.enablePreviewZenMode": true,
+  "markdown-preview-enhanced.enableScriptExecution": true,
+  "markdown-preview-enhanced.frontMatterRenderingOption": "code block",
   "markdown.extension.toc.unorderedList.marker": "*",
   "markdown.extension.orderedList.marker": "one",
   "[jsonc][json]": {
@@ -78,6 +81,7 @@
     "Qiita",
     "shadcn",
     "shellsession",
+    "Shiki",
     "tada",
     "tailwindcss",
     "Tomoki",

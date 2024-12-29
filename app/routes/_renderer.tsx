@@ -15,7 +15,7 @@ export default jsxRenderer(({ children, frontmatter, title, entryName }) => {
   const twitterCardPath = title ? `static/assets/img/twitterCard/${entryName}.png` : "static/assets/img/twitterCard/twitterCard.png";
   const currentPath = useRequestContext().req.path;
   const baseUrl = "https://pathy.jp";
-  const currentUrl = baseUrl + currentPath + "/";
+  const currentUrl = baseUrl + (currentPath.endsWith('/') ? currentPath : currentPath + '/');
 
   return (
     <html lang="ja">
