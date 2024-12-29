@@ -64,6 +64,7 @@ body {
 html:not(.dark) .markdown h2 {
   @apply leading-tight text-2xl mb-4 mt-6 pb-2 font-bold bg-amber-500 p-2 rounded;
 }
+
 html.dark .markdown h2 {
   @apply leading-tight text-2xl mb-4 mt-6 pb-2 font-bold bg-amber-600 p-2 rounded;
 }
@@ -72,6 +73,7 @@ html.dark .markdown h2 {
 html:not(.dark) .markdown h3 {
   @apply leading-snug text-lg mb-4 mt-6 font-bold border border-amber-500 border-l-8 border-l-amber-500 p-1;
 }
+
 html.dark .markdown h3 {
   @apply leading-snug text-lg mb-4 mt-6 font-bold border border-amber-600 border-l-8 border-l-amber-500 p-1;
 }
@@ -105,7 +107,7 @@ html.dark .markdown h3 {
 
 html:not(.dark) .markdown code[data-theme*="everforest-light"] span {
   color: var(--shiki-light);
-  background-color: var(--shiki-light-bg);
+  /* background-color: var(--shiki-light-bg); */
 }
 html:not(.dark) .markdown code[data-theme*="everforest-light"] mark span {
   background-color: transparent;
@@ -113,10 +115,23 @@ html:not(.dark) .markdown code[data-theme*="everforest-light"] mark span {
 
 html.dark .markdown code[data-theme*="material-theme-palenight"] span {
   color: var(--shiki-dark);
-  background-color: var(--shiki-dark-bg);
+  /* background-color: var(--shiki-dark-bg); */
 }
 html.dark .markdown code[data-theme*="material-theme-palenight"] mark span {
   background-color: transparent;
+}
+
+/* インラインコード */
+html:not(.dark) .markdown span code[data-theme*="everforest-light"] span {
+  background-color: var(--shiki-light-bg);
+  padding: 0.2em 0.2em;
+  border-radius: 4px;
+}
+
+html.dark .markdown span code[data-theme*="material-theme-palenight"] span {
+  background-color: var(--shiki-dark-bg);
+  padding: 0.2em 0.2em;
+  border-radius: 4px;
 }
 
 html:not(.dark) .markdown pre[data-theme*="everforest-light"] {
@@ -162,11 +177,11 @@ html.dark .markdown pre[data-theme*="material-theme-palenight"] {
   @apply bg-gray-100 !important;
 }
 
-html.dark .markdown .accordion-header {
+.markdown .accordion-header {
   @apply p-2
 }
 
-html.dark .markdown .accordion-header:hover {
+.markdown .accordion-header:hover {
   @apply text-fuchsia-300
 }
 
