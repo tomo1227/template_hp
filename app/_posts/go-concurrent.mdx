@@ -270,7 +270,7 @@ Goにおける並行性の制御構造そのもので、平行操作の優先順
 
 `select`を使うことで、複数のチャネルに対する読み込み、あるいは書き込みの操作が可能になる。ブランクswitchと似ている。switchは上から順番にチェックするのに対して、select文のcaseは実行順序には関係なく、データの準備ができているcaseから **ランダム** に選択する。
 
-[https://go.dev/play/p/bjQrSrn4kPI](select文の例)
+[select文の例](https://go.dev/play/p/bjQrSrn4kPI)
 
 また、selectがランダムに選択することによって、デッドロックの原因の１つである、**整合性がない順番でロックを取得すること** を防ぐ。
 デッドロックになると`fatal error: all goroutines are asleep - deadlock!`といったエラーが表示される。
