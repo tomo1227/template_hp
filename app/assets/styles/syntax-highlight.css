@@ -3,10 +3,11 @@ pre {
 }
 
 code {
-  @apply text-sm md:text-base !leading-loose;
+  @apply text-sm md:text-base;
 }
 
 pre > code {
+  @apply !leading-5;
   counter-reset: line;
 }
 
@@ -33,28 +34,32 @@ pre [data-line] {
   @apply border-l-blue-400;
 }
 
+html:not(.dark) [data-highlighted-line] {
+  background: rgba(156, 156, 249, 0.267);
+  @apply border-l-blue-400;
+}
 [data-highlighted-chars] {
   @apply bg-zinc-600/50 rounded;
   box-shadow: 0 0 0 4px rgb(82 82 91 / 0.5);
 }
 
 [data-chars-id] {
-  @apply shadow-none p-1 border-b-2;
+  @apply shadow-none border-b-2;
 }
 
 [data-chars-id] span {
   @apply !text-inherit;
 }
 
-[data-chars-id="v"] {
+[data-chars-id="r"] {
   @apply !text-pink-300 bg-rose-800/50 border-b-pink-600 font-bold;
 }
 
-[data-chars-id="s"] {
+[data-chars-id="y"] {
   @apply !text-yellow-300 bg-yellow-800/50 border-b-yellow-600 font-bold;
 }
 
-[data-chars-id="i"] {
+[data-chars-id="p"] {
   @apply !text-purple-200 bg-purple-800/50 border-b-purple-600 font-bold;
 }
 
@@ -62,9 +67,14 @@ pre [data-line] {
   @apply bg-zinc-700 text-zinc-200 rounded-t-lg py-2 px-3 font-semibold text-sm;
 }
 
+
 figure[data-rehype-pretty-code-figure]:has(> [data-rehype-pretty-code-title])
   pre {
   @apply !rounded-t-none;
+}
+
+[data-rehype-pretty-code-caption] {
+  @apply text-sm italic text-zinc-300 bg-gray-500 p-1 rounded-b-full text-center;
 }
 
 figure {
@@ -81,3 +91,35 @@ p {
 article p {
   @apply leading-9;
 }
+
+.diff.remove::before {
+  content: "- ";
+  color: red;
+  font-weight: bold;
+}
+
+.diff.remove {
+  background-color: rgba(255, 0, 0, 0.2);
+  border-radius: 2px;
+  padding: 1px;
+}
+
+/* .diff.remove span {
+  background-color: transparent !important;
+} */
+
+.diff.add::before {
+  content: "+ ";
+  color: rgb(0, 255, 0);
+  font-weight: bold;
+}
+
+.diff.add {
+  background-color: rgba(0, 255, 0, 0.2);
+  border-radius: 2px;
+  padding: 1px; 
+}
+
+/* .diff.add span {
+  background-color: transparent !important;
+} */

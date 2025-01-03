@@ -11,7 +11,11 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeSlug from "rehype-slug";
 import { defineConfig, UserConfig, SSRTarget } from "vite";
-
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import { transformerNotationDiff } from "@shikijs/transformers";
+// import Sitemap from "vite-plugin-sitemap";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 const entry = "./app/server.ts";
 
 export default defineConfig(({ mode }): UserConfig => {
@@ -28,18 +32,20 @@ export default defineConfig(({ mode }): UserConfig => {
       light: "everforest-light",
     },
     defaultLang: "plaintext",
+    transformers: [transformerNotationDiff()],
   };
 
   const commonConfig = {
     plugins: [
       ssg({ entry }),
-      honox({}),
+      honox(),
       mdx({
         jsxImportSource: "hono/jsx",
         providerImportSource: "./app/components/feature/blogs/mdxComponents",
         remarkPlugins: [
           remarkFrontmatter,
           remarkMdxFrontmatter,
+          remarkMath,
           [
             remarkRehype,
             {
@@ -54,8 +60,20 @@ export default defineConfig(({ mode }): UserConfig => {
         ],
         rehypePlugins: [
           rehypeSlug,
+          rehypeKatex,
           rehypeStringify,
           [rehypePrettyCode, highlightOptions],
+        ],
+      }),
+      // Sitemap({
+      //   hostname: "https://pathy.jp/",
+      // }),
+      viteStaticCopy({
+        targets: [
+          {
+            src: "app/sitemap.xml",
+            dest: ".",
+          },
         ],
       }),
     ],
@@ -73,7 +91,7 @@ export default defineConfig(({ mode }): UserConfig => {
       ],
     },
     server: {
-      port: 3001,
+      port: 3003,
       host: "0.0.0.0",
       watch: {
         usePolling: true, // コンテナ環境での監視方法を変更
@@ -82,30 +100,30 @@ export default defineConfig(({ mode }): UserConfig => {
     },
   };
 
-  // if (mode === "production") {
-  return {
-    ...commonConfig,
-    build: {
-      assetsDir: "static",
-      emptyOutDir: false,
-      ssrEmitAssets: true,
-      rollupOptions: {
-        input: [
-          "/app/assets/styles/toc.css",
-          "/app/assets/styles/tailwind.css",
-          "/app/assets/theme.ts",
-          "/app/assets/toc.ts",
-        ],
-        output: {
-          entryFileNames: "static/assets/[name].js",
-          assetFileNames: () => {
-            return "static/assets/[name].[ext]";
+  if (mode === "production") {
+    return {
+      ...commonConfig,
+      build: {
+        assetsDir: "static",
+        emptyOutDir: false,
+        ssrEmitAssets: true,
+        rollupOptions: {
+          input: [
+            "/app/assets/styles/toc.css",
+            "/app/assets/styles/tailwind.css",
+            "/app/assets/theme.ts",
+            "/app/assets/tocbot.ts",
+          ],
+          output: {
+            entryFileNames: "static/assets/[name].js",
+            assetFileNames: () => {
+              return "static/assets/[name].[ext]";
+            },
           },
         },
       },
-    },
-  };
-  // }
+    };
+  }
 
   return commonConfig;
 });

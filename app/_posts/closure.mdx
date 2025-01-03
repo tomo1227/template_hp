@@ -1,49 +1,50 @@
 ---
 title: 【Go言語】クロージャ
 createdDate: 2024-10-29T00:19:50.991Z
-updatedDate: 2024-10-29T00:19:50.991Z
-description: goのクロージャについての記事
-category: go
-iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ghost/Flat/ghost_flat.svg
+description: Goのクロージャについて実践的な使用例を挙げて解説します。
+tags:
+    - Go
+    - バックエンド
+iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Badger/Flat/badger_flat.svg
 ---
 
-# はじめに
+## はじめに
 
 https://doc.rust-jp.rs/book-ja/ch13-01-closures.html のrustの記事がすごいわかりやすかったので、Goで試してみました。スライドもあるので貼っておきます。
 
 <iframe class="speakerdeck-iframe" frameborder="0" src="https://speakerdeck.com/player/286759d28ce843f9b9606a5e53d7cdb9" title="【Go言語】クロージャ" allowfullscreen="true" style="border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; height: auto; aspect-ratio: 560 / 315;" data-ratio="1.7777777777777777"></iframe>
 
-# クロージャを使わない例
+## クロージャを使わない例
 
 [Go Playground](https://go.dev/play/p/bcgrL1Fg2KY)
 
 `caluculateTrainingReps()`をすごい重い処理として考える。
 `generateTrainingMenu()`では、入力に基づいてトレーニングプランを出力するビジネスロジックが含まれる。
 
-```go
+```go showLineNumbers
 // 強度から適切な回数を計算する(重い処理)
 func calcTrainingReps(intensity int) int {
-	fmt.Println("ゆっくり計算中・・・")
-	time.Sleep(2 * time.Second)
-	return intensity
+    fmt.Println("ゆっくり計算中・・・")
+    time.Sleep(2 * time.Second)
+    return intensity
 }
 
 // トレーニングメニューを生成する
 func generateTrainingMenu(intensity int, randomNum int) {
-	if intensity < 25 {
-		fmt.Printf("今日は、%d回腕立てをしなさい!\n", calcTrainingReps(intensity))
-		fmt.Printf("次の日は、%d回腹筋をしなさい!\n", calcTrainingReps(intensity))
-	} else {
-		if randomNum == 3 {
-			fmt.Println("今日は休みましょう!")
-		} else {
-			fmt.Printf("今日は%d分走りなさい!\n", calcTrainingReps(intensity))
-		}
-	}
+    if intensity < 25 {
+        fmt.Printf("今日は、%d回腕立てをしなさい!\n", calcTrainingReps(intensity))
+        fmt.Printf("次の日は、%d回腹筋をしなさい!\n", calcTrainingReps(intensity))
+    } else {
+        if randomNum == 3 {
+            fmt.Println("今日は休みましょう!")
+        } else {
+            fmt.Printf("今日は%d分走りなさい!\n", calcTrainingReps(intensity))
+        }
+    }
 }
 
 func main() {
-	generateTrainingMenu(10, 7)
+    generateTrainingMenu(10, 7)
 }
 ```
 
@@ -53,69 +54,69 @@ generateTrainingMenu関数の期待される振る舞いは、まずユーザが
 * 最初のifで重い処理を2回呼び出す必要性がある
 * `caluculateTrainingReps`が変更されたら、影響箇所が大きい
 
-## 関数でリファクタ
+### 関数でリファクタ
 
 [Go Playground](https://go.dev/play/p/CNA4w5zbobB)
 
-```go
+```go showLineNumbers
 // 強度から適切な回数を計算する
 func caluculateTrainingReps(intensity int) int {
-	fmt.Println("ゆっくり計算中・・・")
-	time.Sleep(2 * time.Second)
-	return intensity
+    fmt.Println("ゆっくり計算中・・・")
+    time.Sleep(2 * time.Second)
+    return intensity
 }
 
 // トレーニングメニューを生成する
 func generateTrainingMenu(intensity int, randomNum int) {
-	reps := caluculateTrainingReps(intensity)
-	if intensity < 25 {
-		fmt.Printf("今日は、%d回腕立てをしなさい!\n", reps)
-		fmt.Printf("次の日は、%d回腹筋をしなさい!\n", reps)
-	} else {
-		if randomNum == 3 {
-			fmt.Println("今日は休みましょう!")
-		} else {
-			fmt.Printf("今日は%d分走りなさい!\n", reps)
-		}
-	}
+    reps := caluculateTrainingReps(intensity)
+    if intensity < 25 {
+        fmt.Printf("今日は、%d回腕立てをしなさい!\n", reps)
+        fmt.Printf("次の日は、%d回腹筋をしなさい!\n", reps)
+    } else {
+        if randomNum == 3 {
+            fmt.Println("今日は休みましょう!")
+        } else {
+            fmt.Printf("今日は%d分走りなさい!\n", reps)
+        }
+    }
 }
 
 func main() {
-	generateTrainingMenu(10, 7)
+    generateTrainingMenu(10, 7)
 }
 ```
 
-## クロージャを使用する
+### クロージャを使用する
 
-```go
+```go showLineNumbers
 // トレーニングメニューを生成する
 func generateTrainingMenu(intensity int, randomNum int) {
-	reps := func(num int) int {
-		fmt.Println("ゆっくり計算中・・・")
-		time.Sleep(2 * time.Second)
-		return num
-	}(intensity)
+    reps := func(num int) int {
+        fmt.Println("ゆっくり計算中・・・")
+        time.Sleep(2 * time.Second)
+        return num
+    }(intensity)
 
-	if intensity < 25 {
-		fmt.Printf("今日は、%d回腕立てをしなさい!\n", reps)
-		fmt.Printf("次の日は、%d回腹筋をしなさい!\n", reps)
-	} else {
-		if randomNum == 3 {
-			fmt.Println("今日は休みましょう!")
-		} else {
-			fmt.Printf("今日は%d分走りなさい!\n", reps)
-		}
-	}
+    if intensity < 25 {
+        fmt.Printf("今日は、%d回腕立てをしなさい!\n", reps)
+        fmt.Printf("次の日は、%d回腹筋をしなさい!\n", reps)
+    } else {
+        if randomNum == 3 {
+            fmt.Println("今日は休みましょう!")
+        } else {
+            fmt.Printf("今日は%d分走りなさい!\n", reps)
+        }
+    }
 }
 
 func main() {
-	generateTrainingMenu(10, 7)
+    generateTrainingMenu(10, 7)
 }
 ```
 
-# カリー化
+## カリー化
 
-```go
+```go showLineNumbers
 package main
 
 import "fmt"
@@ -138,7 +139,7 @@ func main() {
 
 カリー化すると、
 
-```go
+```go showLineNumbers
 func add(a int) func(int) int {
     return func(b int) int {
         return a + b
@@ -157,13 +158,13 @@ func main() {
 
 また、ここで、`add100 := add(100)`のように新しい関数を作ることを **部分適用** という。
 
-# 高階関数
+## 高階関数
 
 https://canopas.com/function-types-and-higher-order-functions-in-go-8ea2e95d1860
 
-## コールバック
+### コールバック
 
-```go
+```go showLineNumbers
 func Process(list []int, callback func(int)) {
     for _, item := range list {
         callback(item)
@@ -178,9 +179,9 @@ func main() {
 }
 ```
 
-## 無名関数
+### 無名関数
 
-```go
+```go showLineNumbers
 func main() {
     words := []string{"apple", "banana", "orange", "grape"}
     sort.Slice(words, func(i, j int) bool {
@@ -190,9 +191,9 @@ func main() {
 }
 ```
 
-## クロージャ
+### クロージャ
 
-```go
+```go showLineNumbers
 func counter() func() int {
     count := 0
     return func() int {
@@ -209,10 +210,9 @@ func main() {
 }
 ```
 
+### 関数の合成
 
-## 関数の合成
-
-```go
+```go showLineNumbers
 func addOne(num int) int {
     return num + 1
 }
@@ -231,7 +231,7 @@ func main() {
 }
 ```
 
-## エラーハンドリング
+### エラーハンドリング
 
 ```go
 func handleErrors(fn func() error) error {
@@ -254,11 +254,11 @@ func main() {
 }
 ```
 
-## テスト
+### テスト
 
 テスト用のモック関数は、高階関数を使用して実現できる。
 
-```go
+```go showLineNumbers
 type DependencyFunc func(int) int
 
 func FunctionUnderTest(dep DependencyFunc, num int) int {
@@ -273,11 +273,11 @@ func main() {
 }
 ```
 
-## パフォーマンスに関する考慮事項
+### パフォーマンスに関する考慮事項
 
 不要な関数呼び出しを最小限に抑えることで、パフォーマンスを最適化できます。オーバーヘッドを削減するためにクロージャを使用する例を次に示します。
 
-```go
+```go showLineNumbers
 func main() {
     sum := 0
     add := func(num int) {

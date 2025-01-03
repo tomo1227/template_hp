@@ -1,0 +1,167 @@
+---
+title: 【Bun】shellでmdxを自動生成する
+createdDate: 2024-11-11T11:31:41.775Z
+description: bunのshellでmdxを自動生成する方法を解説します。
+tags:
+  - Bun
+  - フロント
+iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cat/Flat/cat_flat.svg
+---
+
+## 背景
+
+mdxを作成する際にフロントマターを入力するのが面倒なため、bunの `$ Shell` を用いて自動化する。
+
+## $ shell
+
+[$ Shell – API | Bun Docs](https://bun.sh/docs/runtime/shell)
+
+例えば、以下のように`sample.ts`を作成する。
+
+```ts title="sample.ts"
+import { $ } from "bun";
+
+await $`echo "Hello World!"`; 
+```
+
+そして、ターミナルで以下のコマンドを叩くと実行できる。
+
+```shellsession title="ターミナル"
+$ bun run sample.ts
+Hello World!
+```
+
+## mdxを$ shellで自動作成する
+
+### 生成物
+
+app/_posts/配下に以下のようなフロントマターのファイルを作成する。
+
+```mdx
+---
+title: foo
+createdDate: 2024-11-04T00:19:50.991Z
+updatedDate: 2024-11-04T00:19:50.991Z
+description: hoge
+tags:
+    - fuga
+iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Deer/Flat/deer_flat.svg
+---
+```
+
+### スクリプトの作成
+
+コマンド作成に[prompts - npm](https://www.npmjs.com/package/prompts)を用いる。
+
+```ts showLineNumbers title="script/createPost.ts"
+import { promises } from "node:fs";
+import { $ } from "bun";
+import prompts from "prompts";
+
+const result = await prompts(
+  [
+    {
+      type: "text",
+      name: "title",
+      message: "記事のタイトルを入力してください:",
+      validate: (value) =>
+        value.trim() ? true : "タイトルを入力してください。",
+    },
+    {
+      type: "text",
+      name: "filename",
+      message: "記事のuriを入力してください:",
+      validate: (value) => (value.trim() ? true : "uriを入力してください。"),
+    },
+    {
+      type: "text",
+      name: "description",
+      message: "descriptionを入力してください:",
+      validate: (value) =>
+        value.trim() ? true : "descriptionを入力してください。",
+    },
+    {
+      type: "text",
+      name: "tags",
+      message: "タグをカンマ区切りで入力してください:",
+      validate: (value) =>
+        value.trim() ? true : "少なくとも1つのタグを入力してください。",
+    },
+  ],
+  {
+    onCancel: () => {
+      process.exit(0);
+    },
+  }
+);
+
+const title = result.title as string;
+const filename = result.filename as string;
+const description = result.description as string;
+const date = new Date();
+const tags = (result.tags as string).split(",").map((tag) => tag.trim());
+
+await $`touch ./app/_posts/${filename}.mdx`;
+
+const frontMatter = `---
+title: ${title}
+createdDate: ${date.toISOString()}
+description: ${description}
+tag:
+${tags.map((tag) =>`  - ${tag}`).join("\n")}
+iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Panda/Flat/panda_flat.svg
+---
+
+`;
+
+await promises.writeFile(`./app/_posts/${filename}.mdx`, frontMatter);
+
+await $`echo _posts/${filename}.mdx is created.`;
+```
+
+### package.jsonへの登録
+
+`package.json`に以下を追加。
+
+```json title="package.json"
+"scripts": {
+  "shell": "bun run scripts/createPost.ts"
+},
+```
+
+### 実行例
+
+```shellsession
+$ bun run shell
+✔ 記事のタイトルを入力してください: … aaa
+✔ 記事のuriを入力してください: … bbb
+✔ descriptionを入力してください: … ccc
+✔ タグをカンマ区切りで入力してください: … ddd,eee,fff
+_posts/bbb.mdx is created.
+```
+
+これを実行すると、以下のようなファイルが生成される。
+
+```mdx title="bbb.mdx"
+---
+title: aaa
+createdDate: 2024-11-11T11:53:10.391Z
+updatedDate: 2024-11-11T11:53:10.391Z
+description: ccc
+tag:
+  - ddd
+  - eee
+  - fff
+iconUrl: https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Panda/Flat/panda_flat.svg
+---
+```
+
+ここで、空にした場合は、
+
+```sellsession title="ターミナル"
+$ bun run shell
+? 記事のタイトルを入力してください: › 
+› タイトルを入力してください。
+```
+
+というようにバリデートされるようになっている。

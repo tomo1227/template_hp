@@ -1,13 +1,19 @@
 #toc {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   position: fixed;
   top: 200px;
-  right: 5vw;
+  right: 3vw;
   width: 20vw;
   max-width: 250px;
-  max-height: 80vh;
+  max-height: 65vh;
   padding: 5px;
   z-index: 1000;
+  overflow-y: auto;
+  overscroll-behavior: none;
+  scrollbar-width: none;
+}
+#toc::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edgeでスクロールバーを非表示にする */
 }
 
 #toc ol {
@@ -48,16 +54,16 @@
   @apply list-none w-full rounded-md py-0 my-0;
 }
 
-/* .is-active-link {
-  @apply text-yellow-300 bg-gray-500 font-bold;
-} */
-
 html:not(.dark) .is-active-link {
   @apply text-amber-300 bg-gray-500 font-bold;
 }
 
 html.dark .is-active-link {
   @apply text-amber-300 bg-gray-500 font-bold;
+}
+
+.is-active-link{
+  font-weight:700
 }
 
 .toc{

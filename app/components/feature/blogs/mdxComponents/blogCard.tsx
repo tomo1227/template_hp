@@ -3,7 +3,7 @@ import { fetchOgp } from "../fetchOgp";
 type Props = {
   url: string;
 };
-export const ExternalOgp = async (props: Props) => {
+export const BlogCard = async (props: Props) => {
   const ogp = await fetchOgp(props.url);
 
   if (!ogp) return <></>;
@@ -13,7 +13,7 @@ export const ExternalOgp = async (props: Props) => {
       href={props.url}
       target="_blank"
       class={"ogp-link transition-opacity hover:opacity-65"}
-      rel="noreferrer"
+      rel="noopener noreferrer"
     >
       <div
         class={
@@ -40,16 +40,17 @@ export const ExternalOgp = async (props: Props) => {
                 alt={`favicon of ${ogp.url}`}
               />
             )}
-
             <span class="text-xs">{host}</span>
           </div>
         </div>
         <div class="h-full">
-          <img
-            src={ogp.image}
-            class={"h-full w-fit rounded-r-lg max-w-[32vw] object-cover"}
-            alt={`ogp of ${ogp.image}`}
-          />
+          {ogp.image && (
+            <img
+              src={ogp.image}
+              class={"h-full w-fit rounded-r-lg max-w-[32vw] object-cover"}
+              alt={`ogp of ${ogp.image}`}
+            />
+          )}
         </div>
       </div>
     </a>

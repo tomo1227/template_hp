@@ -3,9 +3,9 @@ import { formattedDate } from "./date";
 type Props = {
   title: string;
   createdDate: string;
-  updatedDate: string;
   description: string;
   iconUrl: string;
+  tags: string[];
   entryName: string;
 };
 export const ArticleListItem = (props: Props) => {

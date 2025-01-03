@@ -1,0 +1,934 @@
+---
+title: 【Rust】エラーハンドリング
+createdDate: 2024-11-03T00:13:50.991Z
+description: Rustにおけるエラーハンドリングの方法を解説します。
+tags: 
+    - Rust
+    - バックエンド
+iconUrl: "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Polar%20bear/Flat/polar_bear_flat.svg"
+---
+
+
+## Rustのエラー
+
+Rustには2種類のエラーが存在する。
+
+* 回復可能 : Result\<T, E\>
+* 回復不能なエラー : panic!
+
+Rustには例外が存在しない。他言語ではこれらのエラーを区別することはなく、例外にしていることが多い。
+
+## panic
+
+panic!はマクロ。
+パニックが発生すると、プログラムはロールバックする。言語がスタックを遡り、 遭遇した各関数のデータをclean upする。
+
+### パニックのabort
+
+パニック発生後、ロールバックに対して、即座に異常終了し、clean upせずにプログラムを終了させると、プログラムが使用していたメモリは、 OSがclean upしなければならない。しかし、プロジェクトにおいて、実行可能ファイルを極力小さくする必要があれば、 異常終了するがある。
+
+Cargo.tomlの`[profile.*]`に以下を記述すると、パニックになった際の挙動をロールバックから異常終了に変更できる。
+
+```toml showLineNumbers title="Cargo.toml"
+[profile.dev]
+panic = 'abort'
+
+[profile.release]
+panic = 'abort'
+```
+
+そして、main関数を作る。
+
+```rust showLineNumbers
+fn main() {
+    panic!("パニック！");
+}
+```
+
+実行結果は以下のようになる。
+
+```shell
+thread 'main' panicked at src/main.rs:2:5:
+パニック！
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+```
+
+また、abortをすると以下のようになる。
+
+```shell
+thread 'main' panicked at src/main.rs:2:5:
+パニック！
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+Aborted
+```
+
+### バックトレース
+
+環境変数`RUST_BACKTRACE`を設定すると、バックトレースを出力することができる。
+
+| 設定値 | 挙動 |
+|:-:|:-:|
+| 0  | バックトレースを非表示  |
+| 1  |  バックトレースを表示 |
+| full  |  バックトレースのverboseを表示|
+
+<Accordion title="RUST_BACKTRACE = 1の場合">
+
+```shellsession title="実行結果"
+$ export RUST_BACKTRACE=1
+$ cargo run
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `target/debug/tmp`
+thread 'main' panicked at src/main.rs:2:5:
+パニック！
+stack backtrace:
+   0: rust_begin_unwind
+             at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panicking.rs:652:5
+   1: core::panicking::panic_fmt
+             at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/core/src/panicking.rs:72:14
+   2: tmp::main
+             at ./src/main.rs:2:5
+   3: core::ops::function::FnOnce::call_once
+             at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/core/src/ops/function.rs:250:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+```
+
+</Accordion>
+
+<Accordion title="RUST_BACKTRACE = fullの場合">
+
+```shellsession title="実行結果"
+$ export RUST_BACKTRACE=full
+vscode ➜ /workspace/tmp (feature/update_template) $ cargo run
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.00s
+     Running `target/debug/tmp`
+thread 'main' panicked at src/main.rs:2:5:
+パニック！
+stack backtrace:
+   0:     0xaaaac9c1ce20 - std::backtrace_rs::backtrace::libunwind::trace::hd36fbcb47e754031
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/../../backtrace/src/backtrace/libunwind.rs:116:5
+   1:     0xaaaac9c1ce20 - std::backtrace_rs::backtrace::trace_unsynchronized::hf1edef0679fd1fd7
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/../../backtrace/src/backtrace/mod.rs:66:5
+   2:     0xaaaac9c1ce20 - std::sys_common::backtrace::_print_fmt::hfcc2839667ddb682
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/sys_common/backtrace.rs:68:5
+   3:     0xaaaac9c1ce20 - <std::sys_common::backtrace::_print::DisplayBacktrace as core::fmt::Display>::fmt::h18d7a2571106fbf4
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/sys_common/backtrace.rs:44:22
+   4:     0xaaaac9c36074 - core::fmt::rt::Argument::fmt::h6694c2ecb3cadfef
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/core/src/fmt/rt.rs:165:63
+   5:     0xaaaac9c36074 - core::fmt::write::hbfa73a7a5186286a
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/core/src/fmt/mod.rs:1168:21
+   6:     0xaaaac9c1aea8 - std::io::Write::write_fmt::h5bae5422b72e7351
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/io/mod.rs:1835:15
+   7:     0xaaaac9c1cc68 - std::sys_common::backtrace::_print::he42d75514d09ae8c
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/sys_common/backtrace.rs:47:5
+   8:     0xaaaac9c1cc68 - std::sys_common::backtrace::print::h2a658d0148ab667e
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/sys_common/backtrace.rs:34:9
+   9:     0xaaaac9c1e010 - std::panicking::default_hook::{{closure}}::h1495412aefb2bb36
+  10:     0xaaaac9c1dc78 - std::panicking::default_hook::he773715f5fd59c50
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panicking.rs:298:9
+  11:     0xaaaac9c1e440 - std::panicking::rust_panic_with_hook::h32dd7f185783ae19
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panicking.rs:795:13
+  12:     0xaaaac9c1e2c8 - std::panicking::begin_panic_handler::{{closure}}::h6e3724fa5e927a4e
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panicking.rs:656:13
+  13:     0xaaaac9c1d300 - std::sys_common::backtrace::__rust_end_short_backtrace::h877ff9009acc9a78
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/sys_common/backtrace.rs:171:18
+  14:     0xaaaac9c1e068 - rust_begin_unwind
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panicking.rs:652:5
+  15:     0xaaaac9c06174 - core::panicking::panic_fmt::hcb4d02f688afee88
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/core/src/panicking.rs:72:14
+  16:     0xaaaac9c06930 - tmp::main::h54b732f195abc2b7
+                               at /workspace/tmp/src/main.rs:2:5
+  17:     0xaaaac9c06838 - core::ops::function::FnOnce::call_once::h93a679ef21d0fdfe
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/core/src/ops/function.rs:250:5
+  18:     0xaaaac9c068a0 - std::sys_common::backtrace::__rust_begin_short_backtrace::h5cc9f3ca7a904ab6
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/sys_common/backtrace.rs:155:18
+  19:     0xaaaac9c069e4 - std::rt::lang_start::{{closure}}::h355efd4c9e666b7e
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/rt.rs:159:18
+  20:     0xaaaac9c190f4 - core::ops::function::impls::<impl core::ops::function::FnOnce<A> for &F>::call_once::h0ea9c1019722c54d
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/core/src/ops/function.rs:284:13
+  21:     0xaaaac9c190f4 - std::panicking::try::do_call::hbb3b1afed470bda3
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panicking.rs:559:40
+  22:     0xaaaac9c190f4 - std::panicking::try::h0129c5d9eb3a8b93
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panicking.rs:523:19
+  23:     0xaaaac9c190f4 - std::panic::catch_unwind::he5a8b1f9de3df436
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panic.rs:149:14
+  24:     0xaaaac9c190f4 - std::rt::lang_start_internal::{{closure}}::h91db0a62cd50de33
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/rt.rs:141:48
+  25:     0xaaaac9c190f4 - std::panicking::try::do_call::hc120f530921da74e
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panicking.rs:559:40
+  26:     0xaaaac9c190f4 - std::panicking::try::hf07ae5daa8b437dd
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panicking.rs:523:19
+  27:     0xaaaac9c190f4 - std::panic::catch_unwind::h27788fb573347317
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/panic.rs:149:14
+  28:     0xaaaac9c190f4 - std::rt::lang_start_internal::hd1567374aba5b64a
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/rt.rs:141:20
+  29:     0xaaaac9c069b4 - std::rt::lang_start::h00096beaacb5098e
+                               at /rustc/3f5fd8dd41153bc5fdca9427e9e05be2c767ba23/library/std/src/rt.rs:158:17
+  30:     0xaaaac9c0695c - main
+  31:     0xffffa8e91e18 - __libc_start_main
+  32:     0xaaaac9c0671c - <unknown>
+```
+
+</Accordion>
+
+## Result
+
+Resultは、回復可能なエラーである。
+
+### Result型とは？
+
+Result型とは、標準ライブラリの`std::result`モジュールで定義されている
+
+```rust showLineNumbers
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+
+例えば、引数が1のときにエラーを返す。
+
+```rust showLineNumbers
+fn foo(x: i8) -> Result<i8, String> {
+    if x == 1 {
+        Err(String::from("ゼロはダメ"))
+    } else {
+        Ok(x)
+    }
+}
+```
+
+### match
+
+呼び出し側では、matchを使ってエラー処理を行う。
+
+```rust showLineNumbers
+fn main() {
+    let result = foo(0);
+
+    match result {
+        Ok(value) => println!("Result: {}", value),
+        Err(err) => println!("Error: {}", err), // Error: ゼロはダメ
+    }
+
+    let result = foo(1);
+
+    match result {
+        Ok(value) => println!("Result: {}", value), // Result: 1
+        Err(err) => println!("Error: {}", err),
+    }
+}
+```
+
+### 特定のエラーでパニック
+
+例えば先ほどの例で1を入力させた時のエラーにパニックを起こしたい場合は、
+
+```rust showLineNumbers
+fn foo(x: i8) -> Result<i8, String> {
+    if x == 0 {
+        Err(String::from("ゼロはダメ"))
+    } else if x == 1 {
+        Err(String::from("1はダメ"))
+    } else {
+        Ok(x)
+    }
+}
+```
+
+そして、呼び出し側で、`Err(ref error) if error == "1はダメ"`のように特定のエラーに対してハンドリングすることが可能である。
+
+```rust showLineNumbers
+fn main() {
+    let result = foo(1);
+    match result {
+        Ok(n) => println!("Success: {}", n),
+        Err(ref error) if error == "1はダメ" => panic!("パニック: {:?}", error),
+        Err(e) => println!("Error: {}", e),
+    }
+}
+```
+
+### unwrap
+
+`match`だと冗長になるときがある。unwrap()を使うと、エラーの時panic、正常時は値を返す。
+
+```rust showLineNumbers
+fn main() {
+    foo(0).unwrap();
+}
+```
+
+これを実行すると、以下のようになる。
+
+```shell title="実行結果"
+thread 'main' panicked at src/main.rs:12:12:
+called `Result::unwrap()` on an `Err` value: "ゼロはダメ"
+```
+
+### expect
+
+expectはunwrapと似ているが、panicのエラーメッセージを自分でカスタマイズできる。
+
+```rust showLineNumbers
+fn main() {
+    foo(0).expect("fooでエラー!");
+}
+```
+
+```shell:実行結果
+thread 'main' panicked at src/main.rs:12:12:
+fooでエラー!: "ゼロはダメ"
+```
+
+### エラーの委譲
+
+エラーはgoなどと同じように、呼び出し元にエラーを返す。
+
+```rust showLineNumbers
+fn read_username_from_file() -> Result<String, io::Error> {
+    let f = File::open("hello.txt");
+
+    let mut f = match f {
+        Ok(file) => file,
+        Err(e) => return Err(e),
+    };
+
+    let mut s = String::new();
+
+    match f.read_to_string(&mut s) {
+        Ok(_) => Ok(s),
+        Err(e) => Err(e),
+    }
+}
+```
+
+## ?演算子
+
+`?`でearly returnをシンプルに書くことができる。
+main関数でも以下のようにResultを返すことで`?`を使うことができるが、Resultを返さなければ、`match`かResultのヘルパー関数を使用するしかない。
+
+```rust showLineNumbers
+fn foo(x: i8) -> Result<i8, String> {
+    if x == 0 {
+        Err(String::from("ゼロはダメ"))
+    } else {
+        Ok(x)
+    }
+}
+
+fn f() -> Result<i8, String> {
+    let result = foo(0)?;
+    Ok(result)
+}
+
+fn main() -> Result<(), String> {
+    println!("{:?}", f()?); // Error: "ゼロはダメ"
+    Ok(())
+}
+
+```
+
+## panicかResultか
+
+https://doc.rust-jp.rs/book-ja/ch09-03-to-panic-or-not-to-panic.html
+
+## Optionとunwrap
+
+`Some(T)`は存在するとき。
+以下はmatchで明示的にNoneを処理している。
+ちなみに、ResultはリッチなOption型であり、値の不在の可能性の代わりにエラーの可能性を示す。
+
+```rust showLineNumbers
+fn give_adult(drink: Option<&str>) {
+    match drink {
+        Some("lemonade") => println!("甘い！"),
+        Some(inner) => println!("{}? うまい！", inner),
+        None => println!("ドリンクがない！！"),
+    }
+}
+fn main() {
+    let water = Some("water");
+    let lemonade = Some("lemonade");
+    let void = None;
+
+    give_adult(water); // water? うまい！
+    give_adult(lemonade); // 甘い！
+    give_adult(void); // ドリンクがない！！
+}
+```
+
+unwrapを使って暗黙的に処理することも可能。
+Noneのときpanicになる。
+
+```rust showLineNumbers
+fn drink(drink: Option<&str>) {
+    let inside = drink.unwrap();
+    if inside == "lemonade" {
+        panic!("ぎゃああああああ!!!!");
+    }
+
+    println!("I love {}s!!!!!", inside);
+}
+fn main() {
+
+    let coffee = Some("coffee");
+    let nothing = None;
+
+    drink(coffee);
+    drink(nothing);
+}
+```
+
+### ?によるハンドリング
+
+```rust showLineNumbers
+fn f(n: Option<i32>) -> Option<i32> {
+    let res = n? + 1;
+    Some(res)
+}
+
+fn main() {
+    let hoge = f(None);
+    println!("{:?}", hoge); // None
+}
+```
+
+### Combinators: map
+
+Option\<T\>に対するmatchの冗長な書き方を、Combinatorsのmapを使ってシンプルに書ける。
+
+```rust showLineNumbers
+#[derive(Debug)]
+struct Peeled(Food);
+
+#[derive(Debug)]
+struct Cooked(Food);
+
+fn peel(food: Option<Food>) -> Option<Peeled> {
+    match food {
+        Some(food) => Some(Peeled(food)),
+        None => None,
+    }
+}
+```
+
+このPeel()はCombinatorsを使うと以下のようになる。
+
+```rust showLineNumbers
+fn peel(food: Option<Food>) -> Option<Peeled> {
+    food.map(Peeled)
+}
+```
+
+また、複数の`map()`をチェインさせることもできる。
+
+[Rust Playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=0086927ef1b895ebcbaa385a008ad583)
+
+```rust showLineNumbers
+fn peel(food: Option<Food>) -> Option<Peeled> {
+    food.map(Peeled)
+}
+
+fn chop(peeled: Option<Peeled>) -> Option<Chopped> {
+    peeled.map(|Peeled(food)| Chopped(food))
+}
+
+fn cook(chopped: Option<Chopped>) -> Option<Cooked> {
+    chopped.map(|Chopped(food)| Cooked(food))
+}
+
+// 複数の`map()`をチェイン
+fn process(food: Option<Food>) -> Option<Cooked> {
+    food.map(Peeled)
+        .map(|Peeled(f)| Chopped(f))
+        .map(|Chopped(f)| Cooked(f))
+}
+```
+
+### Combinators: and_then
+
+以下はmatchで書いた場合の例。
+
+```rust showLineNumbers
+fn have_ingredients(food: Food) -> Option<Food> {
+    match food {
+        Food::Sushi => None,
+        _ => Some(food),
+    }
+}
+
+fn have_recipe(food: Food) -> Option<Food> {
+    match food {
+        Food::Curry => None,
+        _ => Some(food),
+    }
+}
+
+// 料理を作るためには、材料とレシピの両方が必要。
+// ロジックの流れを`match`のチェインで表す。
+fn cookable(food: Food) -> Option<Food> {
+    match have_recipe(food) {
+        None => None,
+        Some(food) => have_ingredients(food),
+    }
+}
+```
+
+これのcookableはCombinatorsのmapを使うと以下のようになる。
+
+```rust showLineNumbers
+fn cookable(food: Food) -> Option<Food> {
+    have_recipe(food).map(have_ingredients).flatten()
+}
+```
+
+さらにCombinatorsのand_thenを使用するとより簡潔にかける。
+
+[Rust Playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=69988c1a7aaf2790784ac4eb30db1e88)
+
+```rust showLineNumbers
+fn cookable(food: Food) -> Option<Food> {
+    have_recipe(food).and_then(have_ingredients)
+}
+```
+
+### or()
+
+[or、or_else、get_or_insert、'get_or_insert_with`](https://doc.rust-jp.rs/rust-by-example-ja/error/option_unwrap/defaults.html#or-is-chainable-evaluates-eagerly-keeps-empty-value-intact)
+
+Rustでは`*_or()`は先行評価である。
+`or()`は、先行評価・連鎖可能・空の値を保持する
+
+```rust
+#[derive(Debug)]
+enum Fruit {
+    Apple,
+    Orange,
+}
+
+fn main() {
+    let apple = Some(Fruit::Apple);
+    let orange = Some(Fruit::Orange);
+    let no_fruit: Option<Fruit> = None;
+
+    let first_available_fruit = no_fruit.or(orange).or(apple);
+    println!("first_available_fruit: {:?}", first_available_fruit);
+}
+```
+
+### or_else()
+
+Rustでは`*_or_else()`は遅延評価である。
+`or_else()`は、遅延評価・連鎖可能・空の値を保持する
+
+### get_or_insert()()
+
+`get_or_insert()`は、先行評価・空の値は変更される
+
+### get_or_insert_with()
+
+`get_or_insert_with()`は、遅延評価・空の値は変更される
+
+## Resutlのエリアス
+
+特定のResult型に対して[エイリアス](https://doc.rust-jp.rs/rust-by-example-ja/types/alias.html)をはれる。stdライブラリは[io::Result](https://doc.rust-lang.org/std/io/type.Result.html)を提供する。
+
+```rust showLineNumbers
+use std::num::ParseIntError;
+
+type AliasedResult<T> = Result<T, ParseIntError>;
+
+fn multiply(first_number_str: &str, second_number_str: &str) -> AliasedResult<i32> {
+    first_number_str.parse::<i32>().and_then(|first_number| {
+        second_number_str.parse::<i32>().map(|second_number| first_number * second_number)
+    })
+}
+
+// もう一度使用。エイリアスによって再度明記する必要性がない。
+fn print(result: AliasedResult<i32>) {
+    match result {
+        Ok(n)  => println!("n is {}", n),
+        Err(e) => println!("Error: {}", e),
+    }
+}
+
+fn main() {
+    print(multiply("10", "2"));
+    print(multiply("t", "2"));
+}
+```
+
+## try!マクロ
+
+`?`ができる前、同様の動作をtry!マクロで行っていた。現在は`?`を使うことが推奨されている。
+
+```rust showLineNumbers
+use std::num::ParseIntError;
+
+fn multiply(first_number_str: &str, second_number_str: &str) -> Result<i32, ParseIntError> {
+    let first_number = try!(first_number_str.parse::<i32>());
+    let second_number = try!(second_number_str.parse::<i32>());
+
+    Ok(first_number * second_number)
+}
+
+fn print(result: Result<i32, ParseIntError>) {
+    match result {
+        Ok(n)  => println!("n is {}", n),
+        Err(e) => println!("Error: {}", e),
+    }
+}
+
+fn main() {
+    print(multiply("10", "2"));
+    print(multiply("t", "2"));
+}
+```
+
+## 複数のエラー
+
+OptionがResultと連携したり、Result\<T, Error1\>がResult\<T, Error2\>と連携すると複雑になる。
+
+```rust showLineNumbers
+fn double_first(vec: Vec<&str>) -> i32 {
+    let first = vec.first().unwrap(); // Generate error 1
+                                      // エラー１の生成
+    2 * first.parse::<i32>().unwrap() // Generate error 2
+                                      // エラー２の生成
+}
+
+fn main() {
+    let numbers = vec!["42", "93", "18"];
+    let empty = vec![];
+    let strings = vec!["tofu", "93", "18"];
+
+    println!("The first doubled is {}", double_first(numbers));
+
+    println!("The first doubled is {}", double_first(empty));
+    // Error 1: the input vector is empty
+    // エラー１：入力が空ベクトル
+
+    println!("The first doubled is {}", double_first(strings));
+    // Error 2: the element doesn't parse to a number
+    // エラー２：要素が数字としてパースできない
+}
+```
+
+### OptionからResultを取り出す
+
+単にお互いを埋め込んでしまう方法。
+
+```rust showLineNumbers
+use std::num::ParseIntError;
+
+// 一番目の要素を2倍にして返す
+fn double_first(vec: Vec<&str>) -> Option<Result<i32, ParseIntError>> {
+    vec.first().map(|first| first.parse::<i32>().map(|n| 2 * n))
+}
+
+fn main() {
+    let numbers = vec!["42", "93", "18"];
+    let empty = vec![];
+    let strings = vec!["tofu", "93", "18"];
+
+    println!("1番目の2倍は{:?}", double_first(numbers)); // 1番目の2倍はSome(Ok(84))
+
+    println!("1番目の2倍は{:?}", double_first(empty)); // 1番目の2倍はNone
+
+    println!("1番目の2倍は{:?}", double_first(strings));
+    // 1番目の2倍はSome(Err(ParseIntError { kind: InvalidDigit }))
+}
+```
+
+Optionの中身がNoneの場合はそのまま処理を進め、エラーの検出に限り実行を止める。（?を使った時のように）。いくつかのコンビネータによって簡単にResultとOptionをスワップできる。
+
+```rust showLineNumbers
+use std::num::ParseIntError;
+
+fn double_first(vec: Vec<&str>) -> Result<Option<i32>, ParseIntError> {
+    let opt = vec.first().map(|first| first.parse::<i32>().map(|n| 2 * n));
+
+    opt.map_or(Ok(None), |r| r.map(Some))
+}
+
+fn main() {
+    let numbers = vec!["42", "93", "18"];
+    let empty = vec![];
+    let strings = vec!["tofu", "93", "18"];
+
+    println!("1番目の2倍は{:?}", double_first(numbers)); //1番目の2倍はOk(Some(84))
+    println!("1番目の2倍は{:?}", double_first(empty)); // 1番目の2倍はOk(None)
+    println!("1番目の2倍は{:?}", double_first(strings));
+    // 1番目の2倍はErr(ParseIntError { kind: InvalidDigit })
+}
+```
+
+### エラー型の定義
+
+異なるエラー型をマスクし、単一のエラー型として扱えるようにすると、コードがシンプルになる場合がある。
+
+「良い」エラー型
+
+* 異なるエラーをまとめて同じ型として扱う
+* ユーザーに優しいエラーメッセージを提供する
+* 他の型との比較を楽にする
+* エラーについての情報を保持できる
+* 他のエラーと問題なく連携できる
+
+以下は独自のエラー型を作成した例である。
+
+```rust showLineNumbers
+use std::error;
+use std::fmt;
+
+type Result<T> = std::result::Result<T, DoubleError>;
+
+#[derive(Debug, Clone)]
+struct DoubleError;
+
+impl fmt::Display for DoubleError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "invalid first item to double")
+    }
+}
+
+impl error::Error for DoubleError {
+    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
+        None
+    }
+}
+
+fn double_first(vec: Vec<&str>) -> Result<i32> {
+    vec.first()
+        .ok_or(DoubleError)
+        .and_then(|s| {
+            s.parse::<i32>()
+                // Update to the new error type here also.
+                // ここでも新たなエラー型に更新する。
+                .map_err(|_| DoubleError)
+                .map(|i| 2 * i)
+        })
+}
+
+fn print(result: Result<i32>) {
+    match result {
+        Ok(n) => println!("1番目の要素の2倍は{}", n),
+        Err(e) => println!("エラー: {}", e),
+    }
+}
+
+fn main() {
+    let numbers = vec!["42", "93", "18"];
+    let empty = vec![];
+    let strings = vec!["tofu", "93", "18"];
+
+    print(double_first(numbers)); // 1番目の要素の2倍は84
+    print(double_first(empty)); // エラー: invalid first item to double
+    print(double_first(strings)); //エラー: invalid first item to double
+}
+```
+
+### エラーのBox
+
+元のエラーを維持しながらシンプルなコードを書くには、Boxする。元のエラー型はランタイムまで判明せず、静的に決定されないことがデメリット
+
+標準ライブラリはBoxに、Fromを介してあらゆるErrorトレイトを実装した型からBox\<Error\>トレイトオブジェクトへの変換を実装させることで、エラーをboxしやすくしてくれる。
+
+```rust showLineNumbers
+use std::error;
+use std::fmt;
+
+// エイリアスを`Box<error::Error>`に変更する。
+type Result<T> = std::result::Result<T, Box<dyn error::Error>>;
+
+#[derive(Debug, Clone)]
+struct EmptyVec;
+
+impl fmt::Display for EmptyVec {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "invalid first item to double")
+    }
+}
+
+impl error::Error for EmptyVec {}
+
+fn double_first(vec: Vec<&str>) -> Result<i32> {
+    vec.first()
+        .ok_or_else(|| EmptyVec.into()) // Converts to Box
+        // Boxに変換
+        .and_then(|s| {
+            s.parse::<i32>()
+                .map_err(|e| e.into()) // Converts to Box
+                // Boxに変換
+                .map(|i| 2 * i)
+        })
+}
+
+fn print(result: Result<i32>) {
+    match result {
+        Ok(n) => println!("1番目の要素の2倍は{}", n),
+        Err(e) => println!("エラー: {}", e),
+    }
+}
+
+fn main() {
+    let numbers = vec!["42", "93", "18"]; // 1番目の要素の2倍は84
+    let empty = vec![]; // エラー: invalid first item to double
+    let strings = vec!["tofu", "93", "18"]; // エラー: invalid digit found in string
+
+    print(double_first(numbers));
+    print(double_first(empty));
+    print(double_first(strings));
+}
+```
+
+### ?の他の活用法
+
+```rust showLineNumbers
+use std::error;
+use std::fmt;
+
+// Change the alias to `Box<dyn error::Error>`.
+// エイリアスを`Box<error::Error>`に変更する。
+type Result<T> = std::result::Result<T, Box<dyn error::Error>>;
+
+#[derive(Debug)]
+struct EmptyVec;
+
+impl fmt::Display for EmptyVec {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "invalid first item to double")
+    }
+}
+
+impl error::Error for EmptyVec {}
+
+// 前と同じ構造だが、`Results`と`Option`を繋げていく代わりに、`?`で内部の値をその場で取得する。
+fn double_first(vec: Vec<&str>) -> Result<i32> {
+    let first = vec.first().ok_or(EmptyVec)?;
+    let parsed = first.parse::<i32>()?;
+    Ok(2 * parsed)
+}
+
+fn print(result: Result<i32>) {
+    match result {
+        Ok(n) => println!("1番目の要素の2倍は{}", n),
+        Err(e) => println!("エラー: {}", e),
+    }
+}
+
+fn main() {
+    let numbers = vec!["42", "93", "18"];
+    let empty = vec![];
+    let strings = vec!["tofu", "93", "18"];
+
+    print(double_first(numbers)); // 1番目の要素の2倍は84
+    print(double_first(empty)); // エラー: invalid first item to double
+    print(double_first(strings)); // エラー: invalid digit found in string
+}
+```
+
+### エラーのラップ
+
+Boxする方法の代替として、エラーを自前のエラー型としてラップする方法もある。
+これはエラーの処理のボイラープレートを増やしてしまい、全てのアプリケーションで必要になる訳では無い。これらのボイラープレートの処理を代わりにやってくれるようなライブラリもある。
+
+```rust showLineNumbers
+use std::error;
+use std::error::Error;
+use std::fmt;
+use std::num::ParseIntError;
+
+type Result<T> = std::result::Result<T, DoubleError>;
+
+#[derive(Debug)]
+enum DoubleError {
+    EmptyVec,
+    // パースエラーの実装まで処理を委譲します。
+    // 追加の情報を提供するには、型により多くのデータを追加する必要があります。
+    Parse(ParseIntError),
+}
+
+impl fmt::Display for DoubleError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            DoubleError::EmptyVec => write!(f, "please use a vector with at least one element"),
+            // ラップされたエラーは追加情報を含み、source メソッドから取り出すことができます。
+            // これはラッパーなので、`fmt`での元となる型の実装に処理を任せます。
+            DoubleError::Parse(..) => write!(f, "the provided string could not be parsed as int"),
+        }
+    }
+}
+
+impl error::Error for DoubleError {
+    fn source(&self) -> Option<&(dyn error::Error + 'static)> {
+        match *self {
+            DoubleError::EmptyVec => None,
+            // 元の実装のエラー型が原因。
+            // `&error::Error`トレイトオブジェクトに暗にキャストされる。
+            // 元となる型が`Error`トレイトをすでに実装しているため問題なく動く。
+            DoubleError::Parse(ref e) => Some(e),
+        }
+    }
+}
+
+// `ParseIntError`から`DoubleError`への変換の実装。
+// `ParseIntError`が`DoubleError`に変換される必要がある時、自動的に`?`から呼び出される。
+impl From<ParseIntError> for DoubleError {
+    fn from(err: ParseIntError) -> DoubleError {
+        DoubleError::Parse(err)
+    }
+}
+
+fn double_first(vec: Vec<&str>) -> Result<i32> {
+    let first = vec.first().ok_or(DoubleError::EmptyVec)?;
+    let parsed = first.parse::<i32>()?;
+
+    Ok(2 * parsed)
+}
+
+fn print(result: Result<i32>) {
+    match result {
+        Ok(n) => println!("1番目の要素の2倍は{}", n),
+        Err(e) => {
+            println!("エラー: {}", e);
+            if let Some(source) = e.source() {
+                println!("  Caused by: {}", source);
+            }
+        }
+    }
+}
+
+fn main() {
+    let numbers = vec!["42", "93", "18"];
+    let empty = vec![];
+    let strings = vec!["tofu", "93", "18"];
+
+    print(double_first(numbers)); // 1番目の要素の2倍は84
+    print(double_first(empty));
+    // エラー: please use a vector with at least one element
+
+    print(double_first(strings));
+    // エラー: the provided string could not be parsed as int
+}
+```
+
+## そのほかの手段
+
+### Resultのイテレート
+
+[Resultをイテレートする - Rust By Example 日本語版](https://doc.rust-jp.rs/rust-by-example-ja/error/iter_result.html)
+
+### thiserror クレート
+
+[thiserrorでカスタムエラーを実装する](https://zenn.dev/hideoka/articles/e2408b1eb8ee3f)
+
+### anyhow クレート
+
+[anyhowでRustのエラーハンドリングメモ](https://zenn.dev/scirexs/articles/0f10d10b7ee60e)
+
+### 参考文献
+
+1. [Introduction - Rust By Example 日本語版](https://doc.rust-jp.rs/rust-by-example-ja/index.html)
+1. [Rustにおけるエラーハンドリング](https://zenn.dev/shimopino/articles/understand-rust-error-handling)
